@@ -1,7 +1,7 @@
 import './style.css';
 import itemsData from './data/items.json';
 import monstersData from './data/monsters.json';
-import { CHANGED, FEATURES, HERO_SKILLS, HEROES, KEPT, KEYS, PLAY_URL, REMOVED, SHOTS, SHOTS_COMPARE } from './content';
+import { CHANGED, CHANGELOG, FEATURES, HERO_SKILLS, HEROES, KEPT, KEYS, PLAY_URL, REMOVED, SHOTS } from './content';
 
 // ------------------------------------------------------------------ data
 interface Item {
@@ -78,12 +78,13 @@ function render() {
   document.querySelectorAll<HTMLAnchorElement>('.nav a').forEach((a) => {
     if (a.dataset.route === route) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
-  const title: Record<string, string> = { home: '', play: '开始游戏 · ', enemies: '敌人图鉴 · ', items: '物品图鉴 · ' };
+  const title: Record<string, string> = { home: '', play: '开始游戏 · ', enemies: '敌人图鉴 · ', items: '物品图鉴 · ', log: '更新日志 · ' };
   document.body.classList.toggle('playing', route === 'play');
   document.title = `${title[route] ?? ''}造梦西游2 重制版 · zmxy2-remake`;
   if (route === 'play') renderPlay();
   else if (route === 'enemies') renderEnemies(q);
   else if (route === 'items') renderItems(q);
+  else if (route === 'log') renderLog();
   else {
     renderHome();
     if (route === 'remake') document.getElementById('changes')?.scrollIntoView();   // the old 重制说明 tab
@@ -118,12 +119,12 @@ function renderHome() {
     </section>
 
     <section class="section" aria-labelledby="h-shots">
-      <div class="section-head"><div><h2 id="h-shots">画面升级</h2></div><p>游戏内截图：左边是去掉新光影的原版画面，右边是重制版</p></div>
-      <div class="shots-compare">${SHOTS_COMPARE.map((c) => `<figure class="shot-pair">
-        <div class="pair"><div><img src="${asset(`img/shots/${c.id}_raw.webp`)}" alt="${c.name} 原版画面" loading="lazy"><span>原版</span></div>
-          <div><img src="${asset(`img/shots/${c.id}.webp`)}" alt="${c.name} 重制版画面" loading="lazy"><span>重制版</span></div></div>
-        <figcaption><b>${c.id} ${c.name}</b>${c.text}</figcaption></figure>`).join('')}</div>
-      <div class="shots">${SHOTS.map((c) => `<figure><img src="${asset(`img/shots/${c.id}.webp`)}" alt="${c.name}" loading="lazy"><figcaption>${c.id} ${c.name}</figcaption></figure>`).join('')}</div>
+      <div class="section-head"><div><h2 id="h-shots">画面升级</h2></div><p>游戏内截图；有两张的，左边是去掉新光影的原版画面</p></div>
+      <div class="shots">${SHOTS.map((c) => `<article class="shot-card${c.before ? ' wide' : ''}">
+        <h3>${c.id} ${c.name}</h3>
+        <div class="pair">${c.before ? `<div><img src="${asset(`img/shots/${c.id}_raw.webp`)}" alt="${c.name} 原版画面" loading="lazy"><span>原版</span></div>` : ''}
+          <div><img src="${asset(`img/shots/${c.id}.webp`)}" alt="${c.name} 重制版画面" loading="lazy">${c.before ? '<span class="new">重制版</span>' : ''}</div></div>
+        <p>${c.text}</p></article>`).join('')}</div>
     </section>
 
     <section class="section" id="changes" aria-labelledby="h-changes">
@@ -144,6 +145,15 @@ function renderHome() {
           <div><h3>物品图鉴</h3><p>${ITEMS.length} 件装备、法宝、时装与道具</p></div></a>
       </div>
     </section>
+  </div>`;
+}
+
+// ------------------------------------------------------------------ changelog
+function renderLog() {
+  main.innerHTML = `<div class="view">
+    <div class="page-head"><h1>更新日志</h1><p>版本号的数字部分相同就是同一个版本；标题界面上“-”后面的识别码只用来区分构建。</p></div>
+    ${CHANGELOG.map((v) => `<article class="log-entry"><header><h2>${v.version}</h2><span>${v.date}</span></header>
+      ${v.groups.map(([g, list]) => `<section><h3>${g}</h3><ul>${list.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></section>`).join('')}</article>`).join('')}
   </div>`;
 }
 

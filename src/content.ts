@@ -5,15 +5,42 @@ export const PLAY_URL = 'https://tomotopieces.github.io/zmxy2-remake/';
 export const REPO_URL = 'https://github.com/Tomotopieces/zmxy2-remake';
 
 // the scenery before / after the remake's lighting (screenshots of the game, the left one with the lighting off)
-export const SHOTS_COMPARE = [
-  { id: '2-2', name: '阎罗殿', text: '殿内压暗成冷紫色，挂灯和吊灯各有一团摇曳的暖光，空中飘着少量灰烬。' },
-  { id: '3-1', name: '忘川河', text: '冷青色的夜和贴水的雾，船头灯与路灯照亮周围，背景鬼火像烟一样扭动。' },
-  { id: '4-1', name: '转轮殿', text: '星空背景加上会闪烁的星星，前景的物体有一圈冷色轮廓光。' },
+// 画面升级: one card per stage - its title, one or two screenshots (a "before" one is the stage with the new lighting
+// off), then the text. Files in public/img/shots/<id>.webp and <id>_raw.webp.
+export const SHOTS: { id: string; name: string; before?: boolean; text: string }[] = [
+  { id: '2-2', name: '阎罗殿', before: true, text: '殿内压暗成冷紫色，挂灯和吊灯各有一团摇曳的暖光，空中飘着少量灰烬。' },
+  { id: '3-1', name: '忘川河', before: true, text: '冷青色的夜和贴水的雾，船头灯与路灯照亮周围，背景鬼火像烟一样扭动。' },
+  { id: '4-1', name: '转轮殿', before: true, text: '星空背景加上会闪烁的星星，前景的物体有一圈冷色轮廓光。' },
+  { id: '1-1', name: '鬼城', text: '月光从一侧照来，角色脚下有影子，地面贴着一层薄雾。' },
+  { id: '8-1', name: '活大地狱', text: '河底的宫殿：蓝绿色的冷光、漂浮的水汽，气泡从下往上慢慢浮起。' },
+  { id: '10-1', name: '螺旋地狱', text: '幽深的青色洞窟，石壁有冷色轮廓光，零星的魂火缓缓上飘。' },
 ];
-export const SHOTS = [
-  { id: '1-1', name: '鬼城' },
-  { id: '8-1', name: '活大地狱' },
-  { id: '10-1', name: '螺旋地狱' },
+
+// 更新日志: one entry per version number (the part after the "-" on the title screen only tells builds apart).
+export const CHANGELOG: { version: string; date: string; groups: [string, string[]][] }[] = [
+  {
+    version: 'v0.1.0',
+    date: '2026-10-17 起',
+    groups: [
+      ['新内容', [
+        '网页版：在浏览器里直接玩，自定义加载界面；资源缓存在本地，之后打开不必重新下载，更新时只下载改动的部分',
+        '背景音乐全部换成高音质版本，统一响度',
+        '雨、河水、风、火焰、水下等关卡环境音，雷暴关卡的闪电后跟着雷声',
+        '游戏帮助回到标题和暂停菜单，列出键盘与手柄操作和三位角色的技能',
+        '标题界面右下角显示版本号',
+        'B 键开关法宝界面；所有弹出面板淡入淡出；切换界面时有黑场转场',
+      ]],
+      ['修正', [
+        '同时命中多个敌人时打击音效被截断、卡顿',
+        '通关结算的用时、连击、评分不显示',
+        '背包里的灵魂、法宝面板的数值显示为 0',
+        '守夜人前抓、白无常与几位阎王的飞行攻击判定位置不跟随攻击',
+        '唐僧玄冰阵的判定节奏与原版不一致',
+        '网页版进入关卡后手柄无法操作',
+        '手柄：背包出售后光标跳到下一格；物品菜单里按 B 会关掉整个背包',
+      ]],
+    ],
+  },
 ];
 
 export const FEATURES = [

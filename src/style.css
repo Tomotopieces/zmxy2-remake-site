@@ -218,18 +218,25 @@ body.playing main { max-width: 1400px; }
 body.playing .foot { display: none; }
 
 /* ------------------------------------------------------------------ screenshots */
-.shots-compare { display: grid; gap: 18px; }
-.shot-pair { margin: 0; padding: 14px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
-.shot-pair .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.shot-pair .pair > div { position: relative; border-radius: 8px; overflow: hidden; }
-.shot-pair img, .shots img { display: block; width: 100%; height: auto; aspect-ratio: 940 / 590; object-fit: cover; }
-.shot-pair span { position: absolute; left: 10px; top: 8px; padding: 2px 10px; border-radius: 999px; font-size: 13px; background: rgba(0, 0, 0, 0.6); color: #eee; }
-.shot-pair .pair > div:last-child span { color: var(--gold); }
-.shot-pair figcaption { margin-top: 10px; color: var(--muted); font-size: 15px; }
-.shot-pair figcaption b { color: var(--text); font-weight: normal; margin-right: 10px; }
-.shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
-.shots figure { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
-.shots figcaption { padding: 8px 12px; color: var(--muted); font-size: 14px; }
+.shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.shot-card { padding: 14px 14px 12px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
+.shot-card.wide { grid-column: 1 / -1; }
+.shot-card h3 { margin: 0 0 10px; font-size: 18px; font-weight: normal; }
+.shot-card .pair { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.shot-card.wide .pair { grid-template-columns: 1fr 1fr; }
+.shot-card .pair > div { position: relative; border-radius: 8px; overflow: hidden; }
+.shot-card img { display: block; width: 100%; height: auto; aspect-ratio: 940 / 590; object-fit: cover; }
+.shot-card span { position: absolute; left: 10px; top: 8px; padding: 2px 10px; border-radius: 999px; font-size: 13px; background: rgba(0, 0, 0, 0.6); color: #eee; }
+.shot-card span.new { color: var(--gold); }
+.shot-card p { margin: 10px 0 0; color: var(--muted); font-size: 15px; }
+
+/* ------------------------------------------------------------------ changelog */
+.log-entry { padding: 20px 22px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); margin-bottom: 18px; }
+.log-entry header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+.log-entry h2 { margin: 0; color: var(--gold); }
+.log-entry header span { color: var(--muted); font-size: 14px; }
+.log-entry h3 { margin: 16px 0 6px; font-size: 17px; font-weight: normal; }
+.log-entry ul { margin: 0; padding-left: 1.2em; color: var(--muted); line-height: 1.8; }
 #changes { scroll-margin-top: 80px; }
 
 /* ------------------------------------------------------------------ dex */
@@ -353,7 +360,7 @@ body.playing .foot { display: none; }
   .features { grid-template-columns: 1fr 1fr; }
   .skills { grid-template-columns: 1fr; }
   .shots { grid-template-columns: 1fr; }
-  .shot-pair .pair { grid-template-columns: 1fr; }
+  .shot-card.wide .pair { grid-template-columns: 1fr; }
   .compare { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
