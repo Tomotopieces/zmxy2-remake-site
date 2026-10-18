@@ -4,6 +4,18 @@
 export const PLAY_URL = 'https://tomotopieces.github.io/zmxy2-remake/';
 export const REPO_URL = 'https://github.com/Tomotopieces/zmxy2-remake';
 
+// the scenery before / after the remake's lighting (screenshots of the game, the left one with the lighting off)
+export const SHOTS_COMPARE = [
+  { id: '2-2', name: '阎罗殿', text: '殿内压暗成冷紫色，挂灯和吊灯各有一团摇曳的暖光，空中飘着少量灰烬。' },
+  { id: '3-1', name: '忘川河', text: '冷青色的夜和贴水的雾，船头灯与路灯照亮周围，背景鬼火像烟一样扭动。' },
+  { id: '4-1', name: '转轮殿', text: '星空背景加上会闪烁的星星，前景的物体有一圈冷色轮廓光。' },
+];
+export const SHOTS = [
+  { id: '1-1', name: '鬼城' },
+  { id: '8-1', name: '水晶宫' },
+  { id: '10-1', name: '螺旋地狱' },
+];
+
 export const FEATURES = [
   { title: '原汁原味的手感', text: '移动、跳跃、连招节奏、技能冷却与伤害公式都按原版数值重建，熟悉的打法照样好用。' },
   { title: '全部关卡与 Boss', text: '主线十关、白骨秘境、牛魔谷、十八层地狱、活大地狱、螺旋地狱，以及中秋、七夕、国庆活动关。' },
@@ -41,7 +53,7 @@ export const REMOVED = [
 // [action, keyboard, gamepad] — the same for all three heroes
 export const KEYS: [string, string, string][] = [
   ['移动', 'A / D', '左摇杆 / 十字键'],
-  ['跑步', '双击 A / D 并按住', '按住 LB'],
+  ['跑步', '快速按两次 A / D', '快速推两次摇杆 / 按两次十字键，或移动时按 LB'],
   ['跳跃 / 二段跳', 'K（空中再按一次）', 'A'],
   ['从平台上跳下', 'S + K', '下 + A'],
   ['普通攻击', 'J', 'X'],

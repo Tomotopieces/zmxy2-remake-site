@@ -212,10 +212,25 @@ body.playing main { max-width: 1400px; }
 .play-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; padding: 32px 0 18px; }
 .play-head h1 { font-size: clamp(30px, 4vw, 44px); }
 .play-head p { margin: 0; color: var(--muted); flex: 1 1 360px; }
-.frame { position: relative; width: 100%; aspect-ratio: 940 / 590; max-height: calc(100vh - 210px); margin: 0 auto; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line-strong); background: #000; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); }
-.game-dock { position: absolute; z-index: 5; border-radius: var(--radius); overflow: hidden; }
+.frame { width: min(100%, calc((100vh - 200px) * 940 / 590)); aspect-ratio: 940 / 590; margin: 0 auto; border-radius: var(--radius); background: #000; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); }
+.game-dock { position: absolute; z-index: 5; box-sizing: border-box; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line-strong); background: #000; }
 .game-dock iframe { width: 100%; height: 100%; border: 0; display: block; }
 body.playing .foot { display: none; }
+
+/* ------------------------------------------------------------------ screenshots */
+.shots-compare { display: grid; gap: 18px; }
+.shot-pair { margin: 0; padding: 14px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
+.shot-pair .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.shot-pair .pair > div { position: relative; border-radius: 8px; overflow: hidden; }
+.shot-pair img, .shots img { display: block; width: 100%; height: auto; aspect-ratio: 940 / 590; object-fit: cover; }
+.shot-pair span { position: absolute; left: 10px; top: 8px; padding: 2px 10px; border-radius: 999px; font-size: 13px; background: rgba(0, 0, 0, 0.6); color: #eee; }
+.shot-pair .pair > div:last-child span { color: var(--gold); }
+.shot-pair figcaption { margin-top: 10px; color: var(--muted); font-size: 15px; }
+.shot-pair figcaption b { color: var(--text); font-weight: normal; margin-right: 10px; }
+.shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+.shots figure { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
+.shots figcaption { padding: 8px 12px; color: var(--muted); font-size: 14px; }
+#changes { scroll-margin-top: 80px; }
 
 /* ------------------------------------------------------------------ dex */
 .toolbar {
@@ -337,6 +352,8 @@ body.playing .foot { display: none; }
 @media (max-width: 960px) {
   .features { grid-template-columns: 1fr 1fr; }
   .skills { grid-template-columns: 1fr; }
+  .shots { grid-template-columns: 1fr; }
+  .shot-pair .pair { grid-template-columns: 1fr; }
   .compare { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
@@ -356,7 +373,7 @@ body.playing .foot { display: none; }
   .card .pic { height: 120px; }
   .stats { grid-template-columns: 1fr; }
   .keys-table th, .keys-table td { padding: 9px 10px; }
-  .frame { max-height: none; }
+  .frame { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

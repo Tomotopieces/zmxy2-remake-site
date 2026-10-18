@@ -1,7 +1,7 @@
 import './style.css';
 import itemsData from './data/items.json';
 import monstersData from './data/monsters.json';
-import { CHANGED, FEATURES, HERO_SKILLS, HEROES, KEPT, KEYS, PLAY_URL, REMOVED, REPO_URL } from './content';
+import { CHANGED, FEATURES, HERO_SKILLS, HEROES, KEPT, KEYS, PLAY_URL, REMOVED, SHOTS, SHOTS_COMPARE } from './content';
 
 // ------------------------------------------------------------------ data
 interface Item {
@@ -65,20 +65,29 @@ const icon = {
   search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
 };
 
+document.addEventListener('click', (e) => {
+  const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-scroll]');
+  if (!a) return;
+  e.preventDefault();
+  document.getElementById(a.dataset.scroll!)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 function render() {
   const { route, q } = parseHash();
   if (gameFrame && route !== 'play') hideGame();
   document.querySelectorAll<HTMLAnchorElement>('.nav a').forEach((a) => {
     if (a.dataset.route === route) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
-  const title: Record<string, string> = { home: '', play: '开始游戏 · ', remake: '重制说明 · ', enemies: '敌人图鉴 · ', items: '物品图鉴 · ' };
+  const title: Record<string, string> = { home: '', play: '开始游戏 · ', enemies: '敌人图鉴 · ', items: '物品图鉴 · ' };
   document.body.classList.toggle('playing', route === 'play');
   document.title = `${title[route] ?? ''}造梦西游2 重制版 · zmxy2-remake`;
   if (route === 'play') renderPlay();
-  else if (route === 'remake') renderRemake();
   else if (route === 'enemies') renderEnemies(q);
   else if (route === 'items') renderItems(q);
-  else renderHome();
+  else {
+    renderHome();
+    if (route === 'remake') document.getElementById('changes')?.scrollIntoView();   // the old 重制说明 tab
+  }
 }
 
 // ------------------------------------------------------------------ home
@@ -90,26 +99,44 @@ function renderHome() {
         <h1>十殿阎罗篇<small>造梦西游2 · 重制版</small></h1>
         <p>那个熟悉的造梦西游2，在 Godot 4 里重新造了一遍。原版的手感、数值和关卡都在，场景氛围重新绘制，不再需要 Flash。</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#/play">在浏览器中开始游戏</a>
-          <a class="btn" href="#/remake">看看改了什么</a>
+          <a class="btn btn-primary" href="#/play">开始游戏</a>
+          <a class="btn" href="#changes" data-scroll="changes">看看改了什么</a>
         </div>
       </div>
     </section>
 
     <section class="section" aria-labelledby="h-heroes">
-      <div class="section-head"><div><div class="eyebrow">CHARACTERS</div><h2 id="h-heroes">取经三人组</h2></div><p>每人五个主动技能、五个被动技能</p></div>
+      <div class="section-head"><div><h2 id="h-heroes">取经三人组</h2></div><p>每人五个主动技能、五个被动技能</p></div>
       <div class="heroes">${HEROES.map((h) => `<article class="hero-card">
         <div class="art"><img src="${asset(`img/heroes/${h.id}.png`)}" alt="${h.name}" loading="lazy"></div>
         <h3>${h.name}</h3><p>${h.text}</p></article>`).join('')}</div>
     </section>
 
     <section class="section" aria-labelledby="h-feat">
-      <div class="section-head"><div><div class="eyebrow">FEATURES</div><h2 id="h-feat">重制版特点</h2></div></div>
+      <div class="section-head"><div><h2 id="h-feat">重制版特点</h2></div></div>
       <div class="features">${FEATURES.map((f, i) => `<article class="feature"><div class="no">0${i + 1}</div><h3>${f.title}</h3><p>${f.text}</p></article>`).join('')}</div>
     </section>
 
+    <section class="section" aria-labelledby="h-shots">
+      <div class="section-head"><div><h2 id="h-shots">画面升级</h2></div><p>游戏内截图：左边是去掉新光影的原版画面，右边是重制版</p></div>
+      <div class="shots-compare">${SHOTS_COMPARE.map((c) => `<figure class="shot-pair">
+        <div class="pair"><div><img src="${asset(`img/shots/${c.id}_raw.webp`)}" alt="${c.name} 原版画面" loading="lazy"><span>原版</span></div>
+          <div><img src="${asset(`img/shots/${c.id}.webp`)}" alt="${c.name} 重制版画面" loading="lazy"><span>重制版</span></div></div>
+        <figcaption><b>${c.id} ${c.name}</b>${c.text}</figcaption></figure>`).join('')}</div>
+      <div class="shots">${SHOTS.map((c) => `<figure><img src="${asset(`img/shots/${c.id}.webp`)}" alt="${c.name}" loading="lazy"><figcaption>${c.id} ${c.name}</figcaption></figure>`).join('')}</div>
+    </section>
+
+    <section class="section" id="changes" aria-labelledby="h-changes">
+      <div class="section-head"><div><h2 id="h-changes">改了什么</h2></div><p>以原版的游戏数据为准重建：怪物血量、技能伤害、掉落、合成和商城价格都和原版一致；变化集中在画面、界面和运行平台上。</p></div>
+      <div class="compare">
+        ${col('保留的原版内容', '#62c96b', KEPT)}
+        ${col('重制版的变化', '#e8b75a', CHANGED)}
+        ${col('移除的内容', '#d64532', REMOVED)}
+      </div>
+    </section>
+
     <section class="section" aria-labelledby="h-dex">
-      <div class="section-head"><div><div class="eyebrow">ARCHIVE</div><h2 id="h-dex">图鉴</h2></div><p>数值来自重制版的游戏数据</p></div>
+      <div class="section-head"><div><h2 id="h-dex">图鉴</h2></div><p>数值来自重制版的游戏数据</p></div>
       <div class="shortcuts">
         <a class="shortcut" href="#/enemies"><img src="${asset('img/monsters/monster46.png')}" alt="" loading="lazy">
           <div><h3>敌人图鉴</h3><p>${MONSTERS.length} 种敌人，其中 ${bossCount} 个 Boss</p></div></a>
@@ -120,33 +147,8 @@ function renderHome() {
   </div>`;
 }
 
-// ------------------------------------------------------------------ remake
-function renderRemake() {
-  const col = (t: string, c: string, list: string[]) => `<section class="col" style="--c:${c}"><h2><span class="dot"></span>${t}</h2><ul>${list.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></section>`;
-  main.innerHTML = `<div class="view">
-    <div class="page-head"><div class="eyebrow">REMAKE</div><h1>重制说明</h1>
-      <p>重制版以原版的游戏数据为准重建：怪物血量、技能伤害、掉落、合成和商城价格都和原版一致；变化集中在画面、界面和运行平台上。</p></div>
-    <div class="compare">
-      ${col('保留的原版内容', '#62c96b', KEPT)}
-      ${col('重制版的变化', '#e8b75a', CHANGED)}
-      ${col('移除的内容', '#d64532', REMOVED)}
-    </div>
-    <section class="section" aria-labelledby="h-keys">
-      <div class="section-head"><div><div class="eyebrow">CONTROLS</div><h2 id="h-keys">键位</h2></div><p>三位角色通用；游戏内的“游戏帮助”里也能查看</p></div>
-      ${keysTable()}
-    </section>
-    <section class="section" aria-labelledby="h-skills">
-      <div class="section-head"><div><div class="eyebrow">SKILLS</div><h2 id="h-skills">各角色技能</h2></div><p>技能在技能面板用灵魂学习；手柄 RB / Y / RT / R3 对应 U / I / O / L</p></div>
-      <div class="skills">${HERO_SKILLS.map((h) => `<section class="skill-card"><h3>${h.hero}</h3><dl>${h.skills.map(([k, n]) => `<div><dt><kbd>${k}</kbd></dt><dd>${n}</dd></div>`).join('')}</dl></section>`).join('')}</div>
-    </section>
-    <section class="section">
-      <div class="section-head"><div><div class="eyebrow">PLAY</div><h2>开始游戏</h2></div></div>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#/play">网页版</a>
-        <a class="btn" href="${REPO_URL}" target="_blank" rel="noopener">项目主页</a>
-      </div>
-    </section>
-  </div>`;
+function col(t: string, c: string, list: string[]) {
+  return `<section class="col" style="--c:${c}"><h2><span class="dot"></span>${t}</h2><ul>${list.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></section>`;
 }
 
 function keysTable() {
@@ -161,7 +163,15 @@ function renderPlay() {
     <div class="play-head"><h1>开始游戏</h1>
       <p>首次加载约 190 MB，之后会缓存在浏览器里。点击画面后再操作；进入游戏后按 F11 或右侧按钮全屏。</p>
       <div class="hero-actions"><button class="btn" id="fs">全屏</button><a class="btn" href="${PLAY_URL}" target="_blank" rel="noopener">在新窗口打开</a></div></div>
-    <div class="frame" id="frame-slot"></div></div>`;
+    <div class="frame" id="frame-slot"></div>
+    <section class="section" aria-labelledby="h-keys">
+      <div class="section-head"><div><h2 id="h-keys">键位</h2></div><p>三位角色通用；游戏内的“游戏帮助”里也能查看</p></div>
+      ${keysTable()}
+    </section>
+    <section class="section" aria-labelledby="h-skills">
+      <div class="section-head"><div><h2 id="h-skills">各角色技能</h2></div><p>技能在技能面板用灵魂学习；手柄 RB / Y / RT / R3 对应 U / I / O / L</p></div>
+      <div class="skills">${HERO_SKILLS.map((h) => `<section class="skill-card"><h3>${h.hero}</h3><dl>${h.skills.map(([k, n]) => `<div><dt><kbd>${k}</kbd></dt><dd>${n}</dd></div>`).join('')}</dl></section>`).join('')}</div>
+    </section></div>`;
   // one frame for the whole visit: going to another tab and back keeps the game running
   if (!gameFrame) {
     gameFrame = document.createElement('iframe');
@@ -223,7 +233,7 @@ function bindToolbar(q: Query, rerender: (q: Query) => void) {
 function renderEnemies(q: Query) {
   const stages = STAGE_ORDER.filter((s) => MONSTERS.some((m) => m.stages.includes(s)));
   main.innerHTML = `<div class="view">
-    <div class="page-head"><div class="eyebrow">BESTIARY</div><h1>敌人图鉴</h1><p>按关卡、类型或名字查找；支持拼音和首字母，例如 <code>hhe</code> 找到红孩儿。</p></div>
+    <div class="page-head"><h1>敌人图鉴</h1><p>按关卡、类型或名字查找；支持拼音和首字母，例如 <code>hhe</code> 找到红孩儿。</p></div>
     ${toolbar('搜索敌人、技能、关卡或掉落……', q,
       `<div class="fgroup"><span>类型</span>${chips('kind', ['Boss', '小怪'], q.kind ?? '')}</div>
        <div class="fgroup"><span>关卡</span>${chips('stage', stages, q.stage ?? '')}</div>`)}
@@ -267,7 +277,7 @@ function openMonster(m: Monster) {
 // ------------------------------------------------------------------ items
 function renderItems(q: Query) {
   main.innerHTML = `<div class="view">
-    <div class="page-head"><div class="eyebrow">ARMORY</div><h1>物品图鉴</h1><p>装备的属性是掉落时随机的范围；支持拼音和首字母，例如 <code>tsgj</code> 找到天煞古剑。</p></div>
+    <div class="page-head"><h1>物品图鉴</h1><p>装备的属性是掉落时随机的范围；支持拼音和首字母，例如 <code>tsgj</code> 找到天煞古剑。</p></div>
     ${toolbar('搜索物品、描述、合成材料或掉落来源……', q,
       `<div class="fgroup"><span>类型</span>${chips('type', TYPES, q.type ?? '')}</div>
        <div class="fgroup"><span>品质</span>${chips('quality', QUALITIES, q.quality ?? '', qColor)}</div>
