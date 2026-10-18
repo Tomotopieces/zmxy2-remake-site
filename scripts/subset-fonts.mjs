@@ -13,8 +13,8 @@ fs.mkdirSync(path.join(SITE, 'src/fonts'), { recursive: true });
 // the marker font only draws headings and names
 const read = (f) => fs.readFileSync(path.join(SITE, f), 'utf8');
 const names = [...JSON.parse(read('src/data/items.json')), ...JSON.parse(read('src/data/monsters.json'))].map((x) => x.name).join('');
-const heads = [...(read('src/main.ts') + read('index.html')).matchAll(/<(?:h[123]|small)[^>]*>([^<]*)/g)].map((m) => m[1]).join('')
-  + [...read('src/content.ts').matchAll(/(?:title|name): '([^']*)'/g)].map((m) => m[1]).join('') + '造梦西游2重制版无名小怪0123456789';
+// every character of the page code (headings are built from template strings, so no tag matching), not the long descriptions
+const heads = read('src/main.ts') + read('src/content.ts') + read('index.html') + '0123456789';
 const markerChars = [...new Set(names + heads)].join('');
 for (const [src, out, set] of [['LXGW975YuanSC-400W.ttf', 'yuan.woff2', chars], ['GBai851Marker.ttf', 'marker.woff2', markerChars]]) {
   const buf = await subsetFont(fs.readFileSync(path.join(FONTS, src)), set, { targetFormat: 'woff2' });

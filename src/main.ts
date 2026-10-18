@@ -1,7 +1,7 @@
 import './style.css';
 import itemsData from './data/items.json';
 import monstersData from './data/monsters.json';
-import { CHANGED, FEATURES, HEROES, KEPT, KEYS, PLAY_URL, REMOVED, REPO_URL } from './content';
+import { CHANGED, FEATURES, HERO_SKILLS, HEROES, KEPT, KEYS, PLAY_URL, REMOVED, REPO_URL } from './content';
 
 // ------------------------------------------------------------------ data
 interface Item {
@@ -67,12 +67,15 @@ const icon = {
 
 function render() {
   const { route, q } = parseHash();
+  if (gameFrame && route !== 'play') document.getElementById('frame-park')!.appendChild(gameFrame);
   document.querySelectorAll<HTMLAnchorElement>('.nav a').forEach((a) => {
     if (a.dataset.route === route) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
-  const title: Record<string, string> = { home: '', remake: '重制说明 · ', enemies: '敌人图鉴 · ', items: '物品图鉴 · ' };
+  const title: Record<string, string> = { home: '', play: '开始游戏 · ', remake: '重制说明 · ', enemies: '敌人图鉴 · ', items: '物品图鉴 · ' };
+  document.body.classList.toggle('playing', route === 'play');
   document.title = `${title[route] ?? ''}造梦西游2 重制版 · zmxy2-remake`;
-  if (route === 'remake') renderRemake();
+  if (route === 'play') renderPlay();
+  else if (route === 'remake') renderRemake();
   else if (route === 'enemies') renderEnemies(q);
   else if (route === 'items') renderItems(q);
   else renderHome();
@@ -87,7 +90,7 @@ function renderHome() {
         <h1>十殿阎罗篇<small>造梦西游2 · 重制版</small></h1>
         <p>那个熟悉的造梦西游2，在 Godot 4 里重新造了一遍。原版的手感、数值和关卡都在，场景氛围重新绘制，不再需要 Flash。</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="${PLAY_URL}" target="_blank" rel="noopener">在浏览器中开始游戏</a>
+          <a class="btn btn-primary" href="#/play">在浏览器中开始游戏</a>
           <a class="btn" href="#/remake">看看改了什么</a>
         </div>
       </div>
@@ -129,17 +132,47 @@ function renderRemake() {
       ${col('移除的内容', '#d64532', REMOVED)}
     </div>
     <section class="section" aria-labelledby="h-keys">
-      <div class="section-head"><div><div class="eyebrow">CONTROLS</div><h2 id="h-keys">键位</h2></div><p>也支持手柄</p></div>
-      <div class="keys">${KEYS.map(([k, v]) => `<div class="key"><kbd>${k}</kbd><span>${v}</span></div>`).join('')}</div>
+      <div class="section-head"><div><div class="eyebrow">CONTROLS</div><h2 id="h-keys">键位</h2></div><p>三位角色通用；游戏内的“游戏帮助”里也能查看</p></div>
+      ${keysTable()}
+    </section>
+    <section class="section" aria-labelledby="h-skills">
+      <div class="section-head"><div><div class="eyebrow">SKILLS</div><h2 id="h-skills">各角色技能</h2></div><p>技能在技能面板用灵魂学习；手柄 RB / Y / RT / R3 对应 U / I / O / L</p></div>
+      <div class="skills">${HERO_SKILLS.map((h) => `<section class="skill-card"><h3>${h.hero}</h3><dl>${h.skills.map(([k, n]) => `<div><dt><kbd>${k}</kbd></dt><dd>${n}</dd></div>`).join('')}</dl></section>`).join('')}</div>
     </section>
     <section class="section">
       <div class="section-head"><div><div class="eyebrow">PLAY</div><h2>开始游戏</h2></div></div>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="${PLAY_URL}" target="_blank" rel="noopener">网页版</a>
+        <a class="btn btn-primary" href="#/play">网页版</a>
         <a class="btn" href="${REPO_URL}" target="_blank" rel="noopener">项目主页</a>
       </div>
     </section>
   </div>`;
+}
+
+function keysTable() {
+  return `<div class="table-wrap"><table class="keys-table"><thead><tr><th scope="col">操作</th><th scope="col">键盘</th><th scope="col">手柄</th></tr></thead>
+    <tbody>${KEYS.map(([a, k, p]) => `<tr><th scope="row">${a}</th><td><kbd>${k}</kbd></td><td>${p === '—' ? '<span class="na">—</span>' : `<kbd>${p}</kbd>`}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+// ------------------------------------------------------------------ play (the web build in a frame)
+let gameFrame: HTMLIFrameElement | null = null;
+function renderPlay() {
+  main.innerHTML = `<div class="view play">
+    <div class="play-head"><h1>开始游戏</h1>
+      <p>首次加载约 190 MB，之后会缓存在浏览器里。点击画面后再操作；进入游戏后按 F11 或右侧按钮全屏。</p>
+      <div class="hero-actions"><button class="btn" id="fs">全屏</button><a class="btn" href="${PLAY_URL}" target="_blank" rel="noopener">在新窗口打开</a></div></div>
+    <div class="frame" id="frame-slot"></div></div>`;
+  // one frame for the whole visit: going to another tab and back keeps the game running
+  if (!gameFrame) {
+    gameFrame = document.createElement('iframe');
+    gameFrame.src = PLAY_URL;
+    gameFrame.title = '造梦西游2 重制版';
+    gameFrame.allow = 'fullscreen; gamepad; autoplay';
+    gameFrame.setAttribute('allowfullscreen', '');
+  }
+  document.getElementById('frame-slot')!.appendChild(gameFrame);
+  gameFrame.focus();
+  document.getElementById('fs')!.addEventListener('click', () => gameFrame!.requestFullscreen());
 }
 
 // ------------------------------------------------------------------ shared dex toolbar
@@ -288,6 +321,5 @@ document.addEventListener('keydown', (e) => {
   else if (e.key === '/' && document.activeElement?.tagName !== 'INPUT') { const q = document.getElementById('q'); if (q) { e.preventDefault(); q.focus(); } }
 });
 
-(document.getElementById('play-top') as HTMLAnchorElement).href = PLAY_URL;
 window.addEventListener('hashchange', () => { closeDrawer(); render(); window.scrollTo(0, 0); });
 render();
