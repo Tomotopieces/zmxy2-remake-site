@@ -67,7 +67,7 @@ const icon = {
 
 function render() {
   const { route, q } = parseHash();
-  if (gameFrame && route !== 'play') document.getElementById('frame-park')!.appendChild(gameFrame);
+  if (gameFrame && route !== 'play') hideGame();
   document.querySelectorAll<HTMLAnchorElement>('.nav a').forEach((a) => {
     if (a.dataset.route === route) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
@@ -170,10 +170,32 @@ function renderPlay() {
     gameFrame.allow = 'fullscreen; gamepad; autoplay';
     gameFrame.setAttribute('allowfullscreen', '');
   }
-  document.getElementById('frame-slot')!.appendChild(gameFrame);
+  const dock = document.getElementById('game-dock')!;
+  if (!gameFrame.isConnected) dock.appendChild(gameFrame);
+  dock.hidden = false;
+  slotWatch.disconnect();
+  slotWatch.observe(document.getElementById('frame-slot')!);
+  placeGame();
+  gameFrame.contentWindow?.postMessage({ zmxy2: 'visible' }, '*');
   gameFrame.focus();
   document.getElementById('fs')!.addEventListener('click', () => gameFrame!.requestFullscreen());
 }
+
+// the dock sits over the page's #frame-slot box (fixed size, aspect 940:590)
+function placeGame() {
+  const slot = document.getElementById('frame-slot');
+  const dock = document.getElementById('game-dock')!;
+  if (!slot || dock.hidden) return;
+  const r = slot.getBoundingClientRect();
+  Object.assign(dock.style, { left: `${r.left + scrollX}px`, top: `${r.top + scrollY}px`, width: `${r.width}px`, height: `${r.height}px` });
+}
+// leaving the tab: the game is told so it mutes and pauses (it keeps its state for when the tab comes back)
+function hideGame() {
+  document.getElementById('game-dock')!.hidden = true;
+  gameFrame?.contentWindow?.postMessage({ zmxy2: 'hidden' }, '*');
+}
+window.addEventListener('resize', placeGame);
+const slotWatch = new ResizeObserver(placeGame);
 
 // ------------------------------------------------------------------ shared dex toolbar
 function chips(name: string, values: string[], current: string, color?: (v: string) => string) {
