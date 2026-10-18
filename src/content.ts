@@ -12,7 +12,7 @@ export const SHOTS_COMPARE = [
 ];
 export const SHOTS = [
   { id: '1-1', name: '鬼城' },
-  { id: '8-1', name: '水晶宫' },
+  { id: '8-1', name: '活大地狱' },
   { id: '10-1', name: '螺旋地狱' },
 ];
 
