@@ -1,0 +1,19 @@
+{
+  "name": "zmxy2-remake-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "data": "node scripts/export-data.mjs",
+    "fonts": "node scripts/subset-fonts.mjs",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "subset-font": "2.9.0",
+    "typescript": "5.9.3",
+    "vite": "7.1.12",
+    "pinyin-pro": "3.29.5"
+  }
+}

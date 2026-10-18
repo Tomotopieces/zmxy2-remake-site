@@ -1,0 +1,372 @@
+{
+ "封印的鬼王剑": {
+  "desc": "要解开阎罗王的封印，需要冥界的阴阳符文。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103578.html"
+ },
+ "前生碎片": {
+  "desc": "传说三生石裂成三块碎片，凑齐了就能释放出三生石的力量。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103627.html"
+ },
+ "来生碎片": {
+  "desc": "传说三生石裂成三块碎片，凑齐了就能释放出三生石的力量。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103630.html"
+ },
+ "今生碎片": {
+  "desc": "传说三生石裂成三块碎片，凑齐了就能释放出三生石的力量。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103632.html"
+ },
+ "阳之符文": {
+  "desc": "解开封印的鬼王剑所需的冥界鬼符。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103634.html"
+ },
+ "阴之符文": {
+  "desc": "解开封印的鬼王剑所需的冥界鬼符。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103636.html"
+ },
+ "红色花瓣": {
+  "desc": "据说彼岸花散落三片花瓣，集齐了才能释放出彼岸花的魔力。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103637.html"
+ },
+ "绿色花瓣": {
+  "desc": "据说彼岸花散落三片花瓣，集齐了才能释放出彼岸花的魔力。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103638.html"
+ },
+ "紫色花瓣": {
+  "desc": "据说彼岸花散落三片花瓣，集齐了才能释放出彼岸花的魔力。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-09-103639.html"
+ },
+ "一级强化石": {
+  "desc": "用来强化装备提高装备属性。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-19-105056.html"
+ },
+ "二级强化石": {
+  "desc": "用来强化装备提高装备属性。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-20-105208.html"
+ },
+ "避水珠": {
+  "desc": "进入忘川河底活大地狱的必备之物。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-30-107076.html"
+ },
+ "阎罗令": {
+  "desc": "通往刑天副本的令牌。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-30-107078.html"
+ },
+ "幸运的喜鹊": {
+  "desc": "增加一小时双倍爆率。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-06-108474.html"
+ },
+ "顽固的水牛": {
+  "desc": "一小时内血量上涨50%。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-06-108475.html"
+ },
+ "蛇之印记": {
+  "desc": "五毒印记，能封印住邪恶的力量。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-19-110829.html"
+ },
+ "蝎之印记": {
+  "desc": "五毒印记，能封印住邪恶的力量。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-19-110831.html"
+ },
+ "三级强化石": {
+  "desc": "用来强化装备提高装备属性。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-19-110867.html"
+ },
+ "蟾之印记": {
+  "desc": "五毒印记，能封印住邪恶的力量。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-26-112267.html"
+ },
+ "蛛之印记": {
+  "desc": "五毒印记，能封印住邪恶的力量。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-26-112268.html"
+ },
+ "四级强化石": {
+  "desc": "用来强化装备提高装备属性。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-26-112294.html"
+ },
+ "蚣之印记": {
+  "desc": "五毒印记，能封印住邪恶的力量。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-08-114521.html"
+ },
+ "毒虫印记": {
+  "desc": "用于合成五毒兽的印记。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-08-114522.html"
+ },
+ "五毒丹": {
+  "desc": "用于强化五毒兽的主动技能。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-08-114531.html"
+ },
+ "小月饼": {
+  "desc": "10个小月饼可兑换一个大月饼，100个小月饼可兑换中秋绝版传说武器。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-09-114607.html"
+ },
+ "玫瑰月饼": {
+  "desc": "生命上限增加600，持续时间一小时。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-09-114608.html"
+ },
+ "蓝莓月饼": {
+  "desc": "魔法上限增加600，持续时间一小时。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-09-114609.html"
+ },
+ "芒果月饼": {
+  "desc": "装备掉落率增加50%，持续时间一小时。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-09-114610.html"
+ },
+ "坚果月饼": {
+  "desc": "防御力增加50，持续时间一小时。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-09-114611.html"
+ },
+ "绿橘月饼": {
+  "desc": "攻击力增加100，持续时间一小时。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201109-09-114612.html"
+ },
+ "地煞葫芦": {
+  "desc": "",
+  "skill": "拥有【烈火咒】技能，对前方怪物造成伤害。",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fb/201107-09-103696.html"
+ },
+ "天煞古剑": {
+  "desc": "",
+  "skill": "拥有【御剑飞行】技能，对前方怪物造成伤害，可以站在剑上。",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fb/201107-09-103701.html"
+ },
+ "白霜镜": {
+  "desc": "",
+  "skill": "拥有【邪灵寄生】技能，向最近的怪物吸取少许生命，15秒后返回所吸取的生命。",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fb/201107-09-103702.html"
+ },
+ "罗刹妖伞": {
+  "desc": "",
+  "skill": "拥有【暴雨梨花】技能，对周围怪物造成中毒效果，并减缓其移动速度。",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fb/201107-09-103703.html"
+ },
+ "血海魔童": {
+  "desc": "",
+  "skill": "拥有【邪恶净化】技能，清除自身负面状态，并对前方怪物造成伤害。",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fb/201107-09-103707.html"
+ },
+ "五毒兽": {
+  "desc": "",
+  "skill": "拥有 狂暴、嗜血、顽固、辉煌、永恒、火咒、雷咒技能。",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fb/201109-08-114535.html"
+ },
+ "地煞猿甲": {
+  "desc": "据说是通臂猿猴的战甲，染上了无法褪去的血迹和被遗忘的记忆。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103588.html"
+ },
+ "罗刹鬼衣": {
+  "desc": "恶鬼之衣，怨气重重。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103589.html"
+ },
+ "老者袍": {
+  "desc": "窃以暮景残光，步履蹒跚，能余几日，魂聚长袍，方今生不朽。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103590.html"
+ },
+ "天煞羽袍": {
+  "desc": "传说由鲲鹏羽毛编织成的法袍，藏有无限的法力，穿上后腾云驾雾，翱翔云端。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103591.html"
+ },
+ "白霜胸甲": {
+  "desc": "极寒之地的千年冰魄，锻造的胸甲，散发出无法靠近的寒气。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103592.html"
+ },
+ "白霜重铠": {
+  "desc": "极寒之地的千年冰魄，锻造的重铠，犹如千年寒冰那般坚固。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103594.html"
+ },
+ "七彩袍": {
+  "desc": "彼岸花，有花无叶，生生世世，永不相见。幻七彩，无生无死，无苦无悲，无欲无求。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103595.html"
+ },
+ "金刚甲": {
+  "desc": "地狱炎岩经三味真火灼烧四十九日而成的战甲，故金刚不灭。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103596.html"
+ },
+ "血海魔甲": {
+  "desc": "聚集了无数怨魂的怨气，闪烁着胆寒的光芒，给人撕心裂肺的绝望。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103599.html"
+ },
+ "锦襕袈裟": {
+  "desc": "观音菩萨交给取经人的袈裟，镶嵌七宝，水火不侵，蕴藏无尽的法力。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103602.html"
+ },
+ "大圣战铠": {
+  "desc": "龙王为齐天大圣定制的战铠，斩妖除魔所向披靡。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103603.html"
+ },
+ "天蓬战衣": {
+  "desc": "泥丸九宫中的天蓬战衣，在妖邪之间散发一股仙气。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/fj/201107-09-103612.html"
+ },
+ "地煞灵戒": {
+  "desc": "聚万物之灵气，佩戴后来去通风，聆其音，知其前后，万物皆明。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/sp/201107-09-103613.html"
+ },
+ "天煞骨链": {
+  "desc": "用无数妖怪的骸骨熔炼的项链，月圆时会发出百兽的悲鸣。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/sp/201107-09-103614.html"
+ },
+ "苍生挂饰": {
+  "desc": "苍天之下，至于酆都蔫蔫然枯草木，独挂饰盎然，万劫亦重生。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/sp/201107-09-103615.html"
+ },
+ "血海妖壳": {
+  "desc": "在血池里浸泡数载而出，坚如磐石，固若金汤。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/sp/201107-09-103616.html"
+ },
+ "罗刹指环": {
+  "desc": "传说阿修罗的指环，横行于六道之间，却留下一抹黯然。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/sp/201107-09-103618.html"
+ },
+ "地煞权杖": {
+  "desc": "权杖捆绑着上古遗骸，蕴藏驱神之力，挥舞间，兴云起雾，电闪雷鸣。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103566.html"
+ },
+ "古腾枪": {
+  "desc": "马面的古藤枪，坚韧无比，破巨岩，轻而易举。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103568.html"
+ },
+ "古腾棒": {
+  "desc": "牛头的古藤棒，重达千斤，碎大石，易如反掌。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103570.html"
+ },
+ "天煞月戟": {
+  "desc": "由月石经三味真火精炼而成，闪耀着黄金般的光芒，此光堪比皓月之明。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103572.html"
+ },
+ "罗刹镰刀": {
+  "desc": "死神遗落的镰刀，一但被砍伤，将留下永远无法愈合的伤口。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103573.html"
+ },
+ "白霜妖杖": {
+  "desc": "寒气逼人，毛骨俱悚，狂飙刮地，人马俱惊。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103574.html"
+ },
+ "鬼王剑": {
+  "desc": "解封后的鬼王剑，斩妖除魔，也只是一念之间。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103581.html"
+ },
+ "三生锤": {
+  "desc": "前世的因，今生的果，宿命轮回，缘起缘灭，三生锤下，瓦解冰消。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103582.html"
+ },
+ "血海邪皇": {
+  "desc": "吸取了血海里无数鲜血和冤魂妖化而成，诡异的妖杖散发着死亡的气息。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103584.html"
+ },
+ "轮回杖": {
+  "desc": "禁锢刑天于十八层地狱之中，六道轮回，生生世世，永无止境。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103585.html"
+ },
+ "擎天柱": {
+  "desc": "撑天之柱，刑天与帝争神，大闹天庭时，坠入地狱。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103586.html"
+ },
+ "九齿钉耙": {
+  "desc": "太上老君用神冰铁亲自锤炼，借五方五帝、六丁六甲之力锻造而成，重量有一藏之数，连柄五千零四十八斤。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103587.html"
+ },
+ "明月杖": {
+  "desc": "中秋活动的绝版传说武器。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201109-08-114525.html"
+ },
+ "凝月刀": {
+  "desc": "中秋活动的绝版传说武器。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201109-08-114526.html"
+ },
+ "殇月锤": {
+  "desc": "中秋活动的绝版传说武器。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201109-08-114529.html"
+ },
+ "1级强化石": {
+  "desc": "用来强化装备提高装备属性。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-19-105056.html"
+ },
+ "2级强化石": {
+  "desc": "用来强化装备提高装备属性。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201107-20-105208.html"
+ },
+ "3级强化石": {
+  "desc": "用来强化装备提高装备属性。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-19-110867.html"
+ },
+ "4级强化石": {
+  "desc": "用来强化装备提高装备属性。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/dj/201108-26-112294.html"
+ },
+ "古藤枪": {
+  "desc": "马面的古藤枪，坚韧无比，破巨岩，轻而易举。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103568.html"
+ },
+ "古藤棒": {
+  "desc": "牛头的古藤棒，重达千斤，碎大石，易如反掌。",
+  "skill": "",
+  "src": "https://news.4399.com/gonglue/zaomengxiyou/zbdq/wuqi/201107-09-103570.html"
+ }
+}
