@@ -7,12 +7,12 @@ import { CHANGED, CHANGELOG, FEATURES, HERO_SKILLS, HEROES, KEPT, KEYS, PLAY_URL
 interface Item {
   id: string; name: string; py: string[]; type: string; user: string; quality: string; color: number[] | null;
   value: number; stats: Record<string, number[]>; desc: string; descSource: string; skill: string; icon: string | null;
-  recipes?: string[][]; shopPrice?: number;
+  recipes?: string[][]; shopPrice?: number; growth?: number[];
 }
 interface Monster {
   id: number; name: string; unnamed: boolean; py: string[]; boss: boolean; hp: number; def: number; mdef: number;
   exp: number; souls: number; speed: number; drops: string[]; dropChance: number; title: string; intro: string;
-  skills: string; stages: string[]; portrait: string | null; forms?: { hp: number; def: number; exp: number }[];
+  skills: string; stages: string[]; portrait: string | null; forms?: { label: string; hp: number; def: number; drops: string[]; dropChance: number }[];
 }
 const ITEMS = itemsData as Item[];
 const MONSTERS = monstersData as Monster[];
@@ -97,7 +97,7 @@ function renderHome() {
   main.innerHTML = `<div class="view">
     <section class="hero" aria-label="造梦西游2 重制版">
       <div class="hero-text">
-        <h1>十殿阎罗篇<small>造梦西游2 · 重制版</small></h1>
+        <h1>造梦西游2 · 重制版<small>十殿阎罗篇</small></h1>
         <p>那个熟悉的造梦西游2，在 Godot 4 里重新造了一遍。原版的手感、数值和关卡都在，场景氛围重新绘制，不再需要 Flash。</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#/play">开始游戏</a>
@@ -107,7 +107,7 @@ function renderHome() {
     </section>
 
     <section class="section" aria-labelledby="h-heroes">
-      <div class="section-head"><div><h2 id="h-heroes">取经三人组</h2></div><p>每人五个主动技能、五个被动技能</p></div>
+      <div class="section-head"><div><h2 id="h-heroes">取经三人组</h2></div></div>
       <div class="heroes">${HEROES.map((h) => `<article class="hero-card">
         <div class="art"><img src="${asset(`img/heroes/${h.id}.png`)}" alt="${h.name}" loading="lazy"></div>
         <h3>${h.name}</h3><p>${h.text}</p></article>`).join('')}</div>
@@ -119,16 +119,16 @@ function renderHome() {
     </section>
 
     <section class="section" aria-labelledby="h-shots">
-      <div class="section-head"><div><h2 id="h-shots">画面升级</h2></div><p>游戏内截图；有两张的，左边是去掉新光影的原版画面</p></div>
+      <div class="section-head"><div><h2 id="h-shots">画面升级</h2></div></div>
       <div class="shots">${SHOTS.map((c) => `<article class="shot-card${c.before ? ' wide' : ''}">
-        <h3>${c.id} ${c.name}</h3>
+        <h3>${c.name}</h3>
         <div class="pair">${c.before ? `<div><img src="${asset(`img/shots/${c.id}_raw.webp`)}" alt="${c.name} 原版画面" loading="lazy"><span>原版</span></div>` : ''}
-          <div><img src="${asset(`img/shots/${c.id}.webp`)}" alt="${c.name} 重制版画面" loading="lazy">${c.before ? '<span class="new">重制版</span>' : ''}</div></div>
+          <div><img src="${asset(`img/shots/${c.id}.webp`)}" alt="${c.name} 重制版画面" loading="lazy"></div></div>
         <p>${c.text}</p></article>`).join('')}</div>
     </section>
 
     <section class="section" id="changes" aria-labelledby="h-changes">
-      <div class="section-head"><div><h2 id="h-changes">改了什么</h2></div><p>以原版的游戏数据为准重建：怪物血量、技能伤害、掉落、合成和商城价格都和原版一致；变化集中在画面、界面和运行平台上。</p></div>
+      <div class="section-head"><div><h2 id="h-changes">改了什么</h2></div></div>
       <div class="compare">
         ${col('保留的原版内容', '#62c96b', KEPT)}
         ${col('重制版的变化', '#e8b75a', CHANGED)}
@@ -137,7 +137,7 @@ function renderHome() {
     </section>
 
     <section class="section" aria-labelledby="h-dex">
-      <div class="section-head"><div><h2 id="h-dex">图鉴</h2></div><p>数值来自重制版的游戏数据</p></div>
+      <div class="section-head"><div><h2 id="h-dex">图鉴</h2></div></div>
       <div class="shortcuts">
         <a class="shortcut" href="#/enemies"><img src="${asset('img/monsters/monster46.png')}" alt="" loading="lazy">
           <div><h3>敌人图鉴</h3><p>${MONSTERS.length} 种敌人，其中 ${bossCount} 个 Boss</p></div></a>
@@ -151,7 +151,7 @@ function renderHome() {
 // ------------------------------------------------------------------ changelog
 function renderLog() {
   main.innerHTML = `<div class="view">
-    <div class="page-head"><h1>更新日志</h1><p>版本号的数字部分相同就是同一个版本；标题界面上“-”后面的识别码只用来区分构建。</p></div>
+    <div class="page-head"><h1>更新日志</h1></div>
     ${CHANGELOG.map((v) => `<article class="log-entry"><header><h2>${v.version}</h2><span>${v.date}</span></header>
       ${v.groups.map(([g, list]) => `<section><h3>${g}</h3><ul>${list.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></section>`).join('')}</article>`).join('')}
   </div>`;
@@ -175,11 +175,11 @@ function renderPlay() {
       <div class="hero-actions"><button class="btn" id="fs">全屏</button><a class="btn" href="${PLAY_URL}" target="_blank" rel="noopener">在新窗口打开</a></div></div>
     <div class="frame" id="frame-slot"></div>
     <section class="section" aria-labelledby="h-keys">
-      <div class="section-head"><div><h2 id="h-keys">键位</h2></div><p>三位角色通用；游戏内的“游戏帮助”里也能查看</p></div>
+      <div class="section-head"><div><h2 id="h-keys">键位</h2></div></div>
       ${keysTable()}
     </section>
     <section class="section" aria-labelledby="h-skills">
-      <div class="section-head"><div><h2 id="h-skills">各角色技能</h2></div><p>技能在技能面板用灵魂学习；手柄 RB / Y / RT / R3 对应 U / I / O / L</p></div>
+      <div class="section-head"><div><h2 id="h-skills">各角色技能</h2></div></div>
       <div class="skills">${HERO_SKILLS.map((h) => `<section class="skill-card"><h3>${h.hero}</h3><dl>${h.skills.map(([k, n]) => `<div><dt><kbd>${k}</kbd></dt><dd>${n}</dd></div>`).join('')}</dl></section>`).join('')}</div>
     </section></div>`;
   // one frame for the whole visit: going to another tab and back keeps the game running
@@ -268,19 +268,20 @@ const stageIndex = (m: Monster) => Math.min(...m.stages.map((s) => STAGE_ORDER.i
 
 function openMonster(m: Monster) {
   const st = (k: string, v: string | number, cls = '') => `<div class="stat"><span>${k}</span><b class="${cls}">${typeof v === 'number' ? fmt(v) : v}</b></div>`;
-  const forms = m.forms ? `<div class="d-sec"><h3>各形态</h3><div class="stats">${m.forms.map((f, i) => st(`第 ${i + 1} 形态生命`, f.hp)).join('')}</div></div>` : '';
+  const dropLine = (list: string[], chance: number) => `<p class="d-note">每次击败有 ${Math.round(chance * 100)}% 机会掉出其中之一</p><div class="links">${list.filter((d) => ITEM_BY_NAME.has(d)).map(itemLink).join('')}</div>`;
+  const forms = m.forms ? `<div class="d-sec"><h3>各形态</h3>${m.forms.map((f, i) => `<div class="form"><h4>${esc(f.label || `第 ${i + 1} 形态`)}</h4><div class="stats">${st('生命', f.hp)}${st('防御', f.def)}</div>${f.drops.length ? `<h5>掉落</h5>${dropLine(f.drops, f.dropChance)}` : ''}</div>`).join('')}</div>` : '';
   const drops = m.drops.filter((d) => ITEM_BY_NAME.has(d));
   openDrawer(`<div style="--q:${m.boss ? '#d64532' : '#e8b75a'}">
     <div class="d-pic">${m.portrait ? `<img src="${asset(m.portrait)}" alt="${esc(monsterLabel(m))}">` : ''}</div>
     <h2 class="d-title" id="drawer-title">${esc(monsterLabel(m))}</h2>
     <div class="d-tag">${m.boss ? '<span class="badge badge-boss">Boss</span>' : '<span class="badge">小怪</span>'}${m.title ? `<span>${esc(m.title)}</span>` : ''}</div>
-    ${m.intro ? `<p class="d-text">${esc(m.intro)}<span class="src">简介摘自 4399 官方 BOSS 档案</span></p>` : ''}
+    ${m.intro ? `<p class="d-text">${esc(m.intro)}</p>` : ''}
     ${m.unnamed ? '<p class="d-text">原版没有为它起名字。</p>' : ''}
     <div class="d-sec"><h3>属性</h3><div class="stats">${st('生命', m.hp)}${st('防御', m.def)}${m.mdef ? st('魔抗', `${Math.round(m.mdef * 100)}%`) : ''}${st('经验', m.exp)}${st('灵魂', m.souls)}</div></div>
     ${forms}
     ${m.skills ? `<div class="d-sec"><h3>技能</h3><p class="d-text" style="margin:0">${esc(m.skills)}</p></div>` : ''}
     <div class="d-sec"><h3>出没地点</h3><div class="links">${m.stages.map((s) => `<button class="link" data-go="enemies" data-k="stage" data-v="${esc(s)}">${esc(s)}</button>`).join('') || '—'}</div></div>
-    ${drops.length ? `<div class="d-sec"><h3>掉落（每件 ${Math.round(m.dropChance * 100)}% 机会掉出其中之一）</h3><div class="links">${drops.map(itemLink).join('')}</div></div>` : ''}
+    ${drops.length ? `<div class="d-sec"><h3>掉落</h3>${dropLine(drops, m.dropChance)}</div>` : ''}
   </div>`);
 }
 
@@ -327,9 +328,9 @@ function openItem(i: Item) {
     <div class="d-pic">${i.icon ? `<img src="${asset(i.icon)}" alt="${esc(i.name)}">` : ''}</div>
     <h2 class="d-title" id="drawer-title" style="color:${qColor(i.quality)}">${esc(i.name)}</h2>
     <div class="d-tag"><span>${esc(i.type)}</span>${i.quality ? `<span class="badge" style="color:${qColor(i.quality)}">${esc(i.quality)}</span>` : ''}${i.user ? `<span>${esc(i.user)}专用</span>` : ''}</div>
-    ${i.desc ? `<p class="d-text">${esc(i.desc)}${i.descSource === '4399' ? '<span class="src">描述摘自 4399 官方装备大全</span>' : ''}</p>` : ''}
-    ${i.skill && i.skill.replace(/。$/, '') !== i.desc.replace(/。$/, '') ? `<div class="d-sec"><h3>法宝技能</h3><p class="d-text" style="margin:0">${esc(i.skill)}<span class="src">摘自 4399 官方装备大全</span></p></div>` : ''}
-    ${stats ? `<div class="d-sec"><h3>属性（掉落时在范围内随机）</h3><div class="stats">${stats}</div></div>` : ''}
+    ${i.desc ? `<p class="d-text">${esc(i.desc)}</p>` : ''}
+    ${i.skill && i.skill.replace(/。$/, '') !== i.desc.replace(/。$/, '') ? `<div class="d-sec"><h3>法宝技能</h3><p class="d-text" style="margin:0">${esc(i.skill)}</p></div>` : ''}
+    ${stats || i.growth ? `<div class="d-sec"><h3>属性</h3><div class="stats">${stats}${i.growth ? `<div class="stat"><span>成长率</span><b>${i.growth[0]} ~ ${i.growth[1]}</b></div>` : ''}</div></div>` : ''}
     <div class="d-sec"><h3>价值</h3><div class="stats"><div class="stat"><span>出售</span><b>${fmt(i.value)} 灵魂</b></div>${i.shopPrice ? `<div class="stat"><span>商城</span><b>${fmt(i.shopPrice)} 功勋</b></div>` : ''}</div></div>
     ${i.recipes ? `<div class="d-sec"><h3>合成</h3>${i.recipes.slice(0, 6).map((r) => `<div class="recipe">${r.map(itemLink).join('<span class="plus">+</span>')}</div>`).join('')}${i.recipes.length > 6 ? `<p class="d-text" style="margin:0">……共 ${i.recipes.length} 种组合</p>` : ''}</div>` : ''}
     ${usedIn.length ? `<div class="d-sec"><h3>可用于合成</h3><div class="links">${usedIn.map((o) => itemLink(o.name)).join('')}</div></div>` : ''}

@@ -16,7 +16,7 @@ export const SHOTS: { id: string; name: string; before?: boolean; text: string }
   { id: '10-1', name: '螺旋地狱', text: '幽深的青色洞窟，石壁有冷色轮廓光，零星的魂火缓缓上飘。' },
 ];
 
-// 更新日志: one entry per version number (the part after the "-" on the title screen only tells builds apart).
+// 更新日志: one entry per version number (builds of one version share it).
 export const CHANGELOG: { version: string; date: string; groups: [string, string[]][] }[] = [
   {
     version: 'v0.1.0',

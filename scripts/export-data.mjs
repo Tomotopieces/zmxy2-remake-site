@@ -36,7 +36,13 @@ function fields(block) {
     // multi-line dictionaries / strings
     if (v === '{' || (v.startsWith('"') && !/"$/.test(v.replace(/\\"/g, '')) )) {
       const end = v === '{' ? '}' : null;
-      while (++i < lines.length) { v += '\n' + lines[i]; if (end ? lines[i] === end : /"$/.test(lines[i])) break; }
+      // a dictionary ends at its own closing brace (a nested one also closes on a bare "}" line)
+      let depth = 1;
+      while (++i < lines.length) {
+        v += '\n' + lines[i];
+        if (end) { depth += (lines[i].match(/\{/g) || []).length - (lines[i].match(/\}/g) || []).length; if (depth <= 0) break; }
+        else if (/"$/.test(lines[i])) break;
+      }
     }
     out[m[1]] = v;
   }
@@ -82,6 +88,12 @@ for (const b of eqTxt.split('\n[sub_resource').filter((b) => /\ndisplay_name = /
     skill: off?.skill || '',
     icon,
   });
+}
+
+// 法宝 growth rate range (treasures.defs.<id>.growth)
+for (const m of eqTxt.matchAll(/\n"([a-z0-9]+)": \{\n"growth": \[([\d.]+), ([\d.]+)\]/g)) {
+  const it = items.find((x) => x.id === m[1]);
+  if (it) it.growth = [Number(m[2]), Number(m[3])];
 }
 
 // fusion recipes / shop
@@ -130,11 +142,30 @@ for (const f of fs.readdirSync(path.join(GAME, 'data/monsters')).filter((f) => f
     portrait: fs.existsSync(path.join(SITE, 'public/img/monsters', value(fl.rig) + '.png')) ? `img/monsters/${value(fl.rig)}.png` : null,
   };
   e.stages = e.stages.filter((s) => STAGE_NAMES[s]).map((s) => STAGE_NAMES[s].name);
+  // bosses whose numbers change in the fight (brain params): 白骨精's three forms, 红孩儿 above the hero level cap
+  // the brain dictionary is Godot text: strip StringName marks, resource refs and typed arrays, then it is JSON
+  let brain = {};
+  if (fl.brain) {
+    const src = fl.brain.replace(/&"/g, '"').replace(/(Sub|Ext)Resource\([^)]*\)/g, 'null')
+      .replace(/Packed\w+Array\(([^)]*)\)/g, '[$1]').replace(/Vector2i?\(([^)]*)\)/g, '[$1]').replace(/Array\[[^\]]*\]\(/g, '(');
+    try { brain = JSON.parse(src); } catch (err) { console.warn('brain of', f, err.message); }
+  }
+  const nameOf = (ids) => ids.map((x) => byId[x]?.name ?? x).filter((n) => n);
+  if (Array.isArray(brain.forms)) {
+    e.forms = brain.forms.map((f, i) => ({ label: `第 ${i + 1} 形态`, hp: f.hp, def: f.def, drops: nameOf(f.drops ?? []), dropChance: f.equip_chance }));
+    e.drops = [];
+  } else if (brain.hard) {
+    e.forms = [
+      { label: `主角 ${brain.hard_level} 级及以下`, hp: e.hp, def: e.def, drops: e.drops, dropChance: e.dropChance },
+      { label: `主角 ${brain.hard_level} 级以上`, hp: brain.hard.hp, def: brain.hard.def, drops: nameOf(brain.hard.drops ?? []), dropChance: e.dropChance },
+    ];
+    e.drops = [];
+  }
   // one entry per name + role; the stage-specific boss copy of a regular monster is a variant
   const key = name ? `${name}|${e.boss}` : `#${id}`;
   const g = groups.get(key);
   if (!g) groups.set(key, e);
-  else { (g.forms ??= [{ hp: g.hp, def: g.def, exp: g.exp }]).push({ hp: e.hp, def: e.def, exp: e.exp }); g.stages = [...new Set([...g.stages, ...e.stages])]; g.drops = [...new Set([...g.drops, ...e.drops])]; }
+  else { (g.forms ??= [{ label: '', hp: g.hp, def: g.def, drops: [], dropChance: 0 }]).push({ label: '', hp: e.hp, def: e.def, drops: [], dropChance: 0 }); g.stages = [...new Set([...g.stages, ...e.stages])]; g.drops = [...new Set([...g.drops, ...e.drops])]; }
 }
 const monsters = [...groups.values()];
 
