@@ -136,6 +136,9 @@ h2 { font-size: clamp(28px, 4vw, 40px); }
 }
 .hero-text { position: absolute; inset: auto auto 10% 6%; z-index: 1; max-width: 520px; }
 .hero-text h1 { font-size: clamp(40px, 7vw, 76px); line-height: 1.05; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8); }
+/* the same seal as the nav brand's 重制版, scaled to the title */
+.hero-text h1 .seal { display: inline-block; vertical-align: 0.55em; margin-left: 0.3em; font-family: 'Yuan', sans-serif; font-size: 0.24em;
+  letter-spacing: 1px; color: var(--red); border: 1px solid var(--red); border-radius: 0.3em; padding: 0 0.45em; line-height: 1.6; text-shadow: none; }
 .hero-text h1 small { display: block; font-size: 0.42em; color: var(--gold); margin-top: 6px; }
 .hero-text p { color: #d8cfc3; font-size: 17px; margin: 18px 0 26px; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }

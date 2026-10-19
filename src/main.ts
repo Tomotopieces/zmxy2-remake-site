@@ -97,7 +97,7 @@ function renderHome() {
   main.innerHTML = `<div class="view">
     <section class="hero" aria-label="造梦西游2 重制版">
       <div class="hero-text">
-        <h1>造梦西游2 · 重制版<small>十殿阎罗篇</small></h1>
+        <h1>造梦西游2<span class="seal">重制版</span><small>十殿阎罗篇</small></h1>
         <p>那个熟悉的造梦西游2，在 Godot 4 里重新造了一遍。原版的手感、数值和关卡都在，场景氛围重新绘制，不再需要 Flash。</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#/play">开始游戏</a>
