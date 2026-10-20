@@ -139,7 +139,7 @@ for (const f of fs.readdirSync(path.join(GAME, 'data/monsters')).filter((f) => f
     dropChance: fl.equip_chance ? value(fl.equip_chance) : 0,
     title: off.title ?? '', intro: off.intro ?? '', skills: off.skills ?? '',
     stages: [...new Set([...(m[2] ? [m[2]] : [...(spawnIn[id] ?? [])]), ...(extraStages[String(id)] ?? [])])],
-    portrait: fs.existsSync(path.join(SITE, 'public/img/monsters', value(fl.rig) + '.png')) ? `img/monsters/${value(fl.rig)}.png` : null,
+    portrait: fs.existsSync(path.join(SITE, 'public/img/monsters', value(fl.puppet) + '.png')) ? `img/monsters/${value(fl.puppet)}.png` : null,
   };
   e.stages = e.stages.filter((s) => STAGE_NAMES[s]).map((s) => STAGE_NAMES[s].name);
   // bosses whose numbers change in the fight (brain params): 白骨精's three forms, 红孩儿 above the hero level cap
