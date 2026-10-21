@@ -79,6 +79,8 @@ button { font: inherit; color: inherit; }
 .nav a { color: var(--muted); text-decoration: none; padding: 6px 14px; border-radius: 999px; transition: color 0.12s, background 0.12s; }
 .nav a:hover { color: var(--text); }
 .nav a[aria-current='page'] { color: var(--text); background: rgba(232, 183, 90, 0.12); }
+.gh { display: flex; color: var(--muted); padding: 6px; border-radius: 999px; transition: color 0.12s, background 0.12s; }
+.gh:hover { color: var(--text); background: rgba(232, 183, 90, 0.12); }
 
 .btn {
   display: inline-flex;
@@ -373,6 +375,7 @@ body.playing .foot { display: none; }
   .top { gap: 12px; flex-wrap: wrap; padding-bottom: 8px; }
   .nav { order: 3; width: 100%; overflow-x: auto; flex: none; }
   .btn-play { margin-left: auto; }
+  .gh { margin-left: auto; }
   .toolbar { position: static; }
   .filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
   .fgroup { flex-wrap: nowrap; white-space: nowrap; }

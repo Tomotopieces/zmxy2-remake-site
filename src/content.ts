@@ -111,12 +111,12 @@ export const KEYS: [string, string, string][] = [
 // skills are learned with souls in the skill panel; [input, name]
 export const HERO_SKILLS: { hero: string; skills: [string, string][] }[] = [
   { hero: '孙悟空', skills: [['W + J', '升龙斩'], ['跑动中 J', '火炎突击'], ['U', '烈焰闪'], ['I', '烈焰风暴'], ['O', '火魔斩']] },
-  { hero: '唐僧', skills: [['按住 J', '冰龙斩（蓄力）'], ['U', '玄冰阵'], ['I', '水幻影（再按 I 传送到幻影处）'], ['O', '天降甘露'], ['L', '水魔爆']] },
+  { hero: '唐僧', skills: [['按住 J', '冰龙波（蓄力）'], ['U', '玄冰阵'], ['I', '水幻影（再按 I 传送到幻影处）'], ['O', '天降甘露'], ['L', '水魔爆']] },
   { hero: '猪八戒', skills: [['U', '碎石破'], ['I', '土流盾'], ['O', '地滚战车'], ['W + J', '战争怒吼'], ['L', '土魔刺（再按 L 射出飞刺）']] },
 ];
 
 export const HEROES = [
   { id: 'wukong', name: '孙悟空', text: '近战连招与爆发，火魔斩、烈焰闪。' },
-  { id: 'tangseng', name: '唐僧', text: '远程法术与控制，冰龙斩、天降甘露。' },
+  { id: 'tangseng', name: '唐僧', text: '远程法术与控制，冰龙波、天降甘露。' },
   { id: 'bajie', name: '猪八戒', text: '厚血与反伤，土流盾、土魔刺。' },
 ];
