@@ -171,7 +171,7 @@ let gameFrame: HTMLIFrameElement | null = null;
 function renderPlay() {
   main.innerHTML = `<div class="view play">
     <div class="play-head"><h1>开始游戏</h1>
-      <p>首次加载约 190 MB，之后会缓存在浏览器里。点击画面后再操作；进入游戏后按 F11 或右侧按钮全屏。</p>
+      <p>切换到其他页签不会停止游戏，切回来就能继续玩。</p>
       <div class="hero-actions"><button class="btn" id="fs">全屏</button><a class="btn" href="${PLAY_URL}" target="_blank" rel="noopener">在新窗口打开</a></div></div>
     <div class="frame" id="frame-slot"></div>
     <section class="section" aria-labelledby="h-keys">

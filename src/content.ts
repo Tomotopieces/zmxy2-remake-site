@@ -19,7 +19,7 @@ export const SHOTS: { id: string; name: string; before?: boolean; text: string }
 // 更新日志: one entry per version number (builds of one version share it).
 export const CHANGELOG: { version: string; date: string; groups: [string, string[]][] }[] = [
   {
-    version: 'v0.2.0',
+    version: 'v0.2',
     date: '2026-10-22',
     groups: [
       ['新内容', [
@@ -28,6 +28,8 @@ export const CHANGELOG: { version: string; date: string; groups: [string, string
         '背包的装备 / 道具 / 时装可以用手柄 LB / RB 切换',
         '技能面板和游戏帮助里的手柄按键改为按键图标，用手柄时才显示手柄提示',
         '技能面板改成表格：每个技能的名称、图标、所需灵魂、按键和说明一目了然',
+        '地图界面也能用 C / V / B / Esc / Tab 打开菜单；手柄在地图上跳过未解锁的关卡，打开地图时光标停在下一关',
+        '炼丹炉右侧背包的页签和背包一致，手柄 LB / RB 切换',
         '物品菜单、页签等按钮换成统一的新样式；背包和法宝的经验、灵魂改为进度条',
       ]],
       ['修正', [
@@ -38,11 +40,15 @@ export const CHANGELOG: { version: string; date: string; groups: [string, string
         '背包里主角身后的光出现两份',
         '罗刹妖伞的毒伤没把基础伤害算进倍率，且只在装备时随机一次',
         '商城里唐僧和八戒看到的是悟空的时装',
+        '连招转向：招式进行中不再转身，只在下一招出手时朝向当前按住的方向（例如第 4 下时按反方向，第 5 下朝新方向打出）',
+        '手柄：物品菜单无法用十字键 / 摇杆切换选项，不可用的选项现在会自动跳过',
+        '用过键盘或鼠标后，按 LT / RT 不显示手柄按键提示',
+        '网页版手柄不震动',
       ]],
     ],
   },
   {
-    version: 'v0.1.0',
+    version: 'v0.1',
     date: '2026-10-17 起',
     groups: [
       ['新内容', [
@@ -55,7 +61,7 @@ export const CHANGELOG: { version: string; date: string; groups: [string, string
       ]],
       ['手感', [
         '预输入：攻击、技能、跳跃稍早按下也会在能出招的那一刻执行，落地前按跳会在落地时起跳',
-        '招式之间按住反方向会立刻转身，接下来的招式朝新的方向放出',
+        '出招时按住的方向决定下一招的朝向：连招中按反方向，下一下就朝新方向打出',
         '重击命中时画面短暂停顿（卡肉感），连段收招、火炎突击、升龙斩等为中档，火魔斩落地、水魔爆、碎石破为重档',
         '重新做的相机震动，力度随招式轻重变化；暂停菜单可以关闭画面震动',
         '命中时手柄震动，暂停菜单可以关闭',
@@ -116,26 +122,26 @@ export const REMOVED = [
 // [action, keyboard, gamepad] — the same for all three heroes
 export const KEYS: [string, string, string][] = [
   ['移动', 'A / D', '左摇杆 / 十字键'],
-  ['跑步', '快速按两次 A / D', '快速推两次摇杆 / 按两次十字键，或移动时按 LB'],
-  ['跳跃 / 二段跳', 'K（空中再按一次）', 'A'],
-  ['从平台上跳下', 'S + K', '下 + A'],
+  ['跑步', '双击 A / D', '快推两次左摇杆 / 十字键，或移动时按 LB'],
+  ['跳跃 / 二段跳', 'K', 'A'],
+  ['从平台跳下', 'S + K', '下 + A'],
   ['普通攻击', 'J', 'X'],
   ['进入传送门', 'W', '上'],
-  ['技能 1 ~ 4', 'U / I / O / L', 'RB / Y / RT / R3'],
-  ['无双（怒气满时变身）', '空格', 'LT'],
+  ['技能', 'U / I / O / L', 'RB / Y / RT / R3'],
+  ['无双（变身）', '空格', 'LT'],
   ['法宝技能', 'H', 'B'],
-  ['背包 / 技能 / 法宝', 'C / V / B', 'Back（背包）'],
-  ['暂停 / 返回', 'Esc', 'Start；菜单里 B 返回'],
-  ['菜单选择 / 确认', '鼠标', '十字键或左摇杆 / A'],
-  ['音量减 / 加 / 静音', '- / = / M', '—'],
+  ['背包 / 技能 / 法宝', 'C / V / B', 'View（背包）'],
+  ['暂停', 'Esc / Tab', 'Menu'],
+  ['返回', 'Esc / Tab', 'B'],
+  ['音量 / 静音', '- / = / M', '—'],
   ['全屏', 'F11', '—'],
 ];
 
-// skills are learned with souls in the skill panel; [input, name]
+// skills are learned with souls in the skill panel; [keyboard / pad, name] — the same as the in-game help
 export const HERO_SKILLS: { hero: string; skills: [string, string][] }[] = [
-  { hero: '孙悟空', skills: [['W + J', '升龙斩'], ['跑动中 J', '火炎突击'], ['U', '烈焰闪'], ['I', '烈焰风暴'], ['O', '火魔斩']] },
-  { hero: '唐僧', skills: [['按住 J', '冰龙波（蓄力）'], ['U', '玄冰阵'], ['I', '水幻影（再按 I 传送到幻影处）'], ['O', '天降甘露'], ['L', '水魔爆']] },
-  { hero: '猪八戒', skills: [['U', '碎石破'], ['I', '土流盾'], ['O', '地滚战车'], ['W + J', '战争怒吼'], ['L', '土魔刺（再按 L 射出飞刺）']] },
+  { hero: '孙悟空', skills: [['W + J / 上 + X', '升龙斩'], ['跑 + J / 跑 + X', '火炎突击'], ['U / RB', '烈焰闪'], ['I / Y', '烈焰风暴'], ['O / RT', '火魔斩']] },
+  { hero: '唐僧', skills: [['按住 J / 按住 X', '冰龙波'], ['U / RB', '玄冰阵'], ['I / Y', '水幻影'], ['O / RT', '天降甘露'], ['L / R3', '水魔爆']] },
+  { hero: '猪八戒', skills: [['U / RB', '碎石破'], ['I / Y', '土流盾'], ['O / RT', '地滚战车'], ['W + J / 上 + X', '战争怒吼'], ['L / R3', '土魔刺']] },
 ];
 
 export const HEROES = [
