@@ -106,10 +106,12 @@ for (const m of ruleBlock('shop').matchAll(/"([a-z0-9]+)": ([\d.]+)/g)) if (byId
 // ------------------------------------------------------------------ monsters
 const STAGE_NAMES = official('stages.json');   // sl11 -> {name, boss?}
 const spawnIn = {};
-for (const d of fs.readdirSync(path.join(GAME, 'assets/levels'))) {
-  const f = path.join(GAME, 'assets/levels', d, 'level.json');
-  if (!fs.existsSync(f) || !STAGE_NAMES[d]) continue;
-  for (const s of JSON.parse(fs.readFileSync(f, 'utf8')).spawners ?? []) (spawnIn[s.enemy] ??= new Set()).add(d);
+for (const file of fs.readdirSync(path.join(GAME, 'scenes/levels'))) {
+  const d = file.replace(/.tscn$/, '');
+  if (!STAGE_NAMES[d]) continue;
+  // the stage scene's MonsterSpawn nodes (Layout/Stops/<stop>/<spawn>: "monster = <id>")
+  const scene = fs.readFileSync(path.join(GAME, 'scenes/levels', file), 'utf8');
+  for (const m of scene.matchAll(/^monster = (d+)$/gm)) (spawnIn[+m[1]] ??= new Set()).add(d);
 }
 const officialMonsters = official('monsters.json');
 const extraStages = official('monster_stages.json');   // id -> [stage] for summoned / scripted monsters
