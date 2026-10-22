@@ -1,6 +1,7 @@
 import './style.css';
 import itemsData from './data/items.json';
 import monstersData from './data/monsters.json';
+import guideMd from '../public/guide.md?raw';
 import { CHANGED, CHANGELOG, FEATURES, HERO_SKILLS, HEROES, KEPT, KEYS, PLAY_URL, REMOVED, SHOTS } from './content';
 
 // ------------------------------------------------------------------ data
@@ -78,13 +79,14 @@ function render() {
   document.querySelectorAll<HTMLAnchorElement>('.nav a').forEach((a) => {
     if (a.dataset.route === route) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
-  const title: Record<string, string> = { home: '', play: '开始游戏 · ', enemies: '敌人图鉴 · ', items: '物品图鉴 · ', log: '更新日志 · ' };
+  const title: Record<string, string> = { home: '', play: '开始游戏 · ', enemies: '敌人图鉴 · ', items: '物品图鉴 · ', log: '更新日志 · ', guide: '游戏指南 · ' };
   document.body.classList.toggle('playing', route === 'play');
   document.title = `${title[route] ?? ''}造梦西游2 重制版 · zmxy2-remake`;
   if (route === 'play') renderPlay();
   else if (route === 'enemies') renderEnemies(q);
   else if (route === 'items') renderItems(q);
   else if (route === 'log') renderLog();
+  else if (route === 'guide') renderGuide();
   else {
     renderHome();
     if (route === 'remake') document.getElementById('changes')?.scrollIntoView();   // the old 重制说明 tab
@@ -149,6 +151,45 @@ function renderHome() {
 }
 
 // ------------------------------------------------------------------ changelog
+// ------------------------------------------------------------------ guide (public/guide.md, also served raw for agents)
+function inline(s: string) {
+  return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`(.+?)`/g, '<code>$1</code>');
+}
+function markdown(md: string) {
+  const out: string[] = [];
+  const lines = md.split('\n').map((x) => x.replace(/\s+$/, ''));
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i];
+    if (l.startsWith('# ')) continue;   // the page head says it
+    if (l.startsWith('## ')) { const t = l.slice(3); out.push(`<h2 id="g-${encodeURIComponent(t)}">${inline(t)}</h2>`); continue; }
+    if (l.startsWith('|')) {
+      const rows: string[][] = [];
+      for (; i < lines.length && lines[i].startsWith('|'); i++) rows.push(lines[i].slice(1, -1).split('|').map((c) => c.trim()));
+      i--;
+      const [head, , ...body] = rows;
+      out.push(`<div class="table-wrap"><table class="guide-table"><thead><tr>${head.map((c) => `<th scope="col">${inline(c)}</th>`).join('')}</tr></thead><tbody>${body.map((r) => `<tr>${r.map((c, k) => k === 0 ? `<th scope="row">${inline(c)}</th>` : `<td>${inline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`);
+      continue;
+    }
+    if (l.startsWith('- ')) {
+      const items: string[] = [];
+      for (; i < lines.length && lines[i].startsWith('- '); i++) items.push(lines[i].slice(2));
+      i--;
+      out.push(`<ul>${items.map((x) => `<li>${inline(x)}</li>`).join('')}</ul>`);
+      continue;
+    }
+    if (l.trim()) out.push(`<p>${inline(l)}</p>`);
+  }
+  return out.join('\n');
+}
+function renderGuide() {
+  const toc = [...guideMd.matchAll(/^## (.+)$/gm)].map((x) => x[1]);
+  main.innerHTML = `<div class="view guide">
+    <div class="page-head"><h1>游戏指南</h1><p>原始文本：<a href="${asset('guide.md')}">guide.md</a></p></div>
+    <nav class="guide-toc" aria-label="目录">${toc.map((t) => `<a href="#g-${encodeURIComponent(t)}" data-scroll="g-${encodeURIComponent(t)}">${esc(t)}</a>`).join('')}</nav>
+    ${markdown(guideMd)}
+  </div>`;
+}
+
 function renderLog() {
   main.innerHTML = `<div class="view">
     <div class="page-head"><h1>更新日志</h1></div>

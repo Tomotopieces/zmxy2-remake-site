@@ -400,3 +400,17 @@ body.playing .foot { display: none; }
 .form h4 { margin: 0 0 8px; font-weight: normal; color: var(--text); font-size: 15px; }
 .form h5 { margin: 10px 0 4px; font-weight: normal; color: var(--muted); font-size: 13px; }
 .d-note { margin: 0 0 6px; color: var(--muted); font-size: 13px; }
+
+/* 游戏指南 */
+.guide h2 { margin: 40px 0 14px; font-size: 28px; scroll-margin-top: 80px; }
+.guide p, .guide li { color: var(--text); line-height: 1.8; max-width: 860px; }
+.guide ul { padding-left: 1.2em; margin: 10px 0 18px; }
+.guide code { font-size: .92em; padding: 1px 5px; border-radius: 4px; background: rgba(255,255,255,.06); }
+.guide-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 8px; }
+.guide-toc a { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--text); text-decoration: none; }
+.guide-toc a:hover { border-color: var(--gold); color: var(--gold); }
+.guide-table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; background: var(--panel); border-radius: var(--radius); overflow: hidden; }
+.guide-table th, .guide-table td { padding: 10px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; line-height: 1.7; }
+.guide-table thead th { color: var(--gold); font-weight: 600; white-space: nowrap; }
+.guide-table tbody th { white-space: nowrap; color: var(--text); font-weight: 600; }
+.guide-table td:nth-child(2), .guide-table td:nth-child(3) { white-space: nowrap; }

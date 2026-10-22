@@ -16,7 +16,7 @@ const names = [...JSON.parse(read('src/data/items.json')), ...JSON.parse(read('s
 // every character of the page code (headings are built from template strings, so no tag matching), not the long descriptions
 const heads = read('src/main.ts') + read('src/content.ts') + read('index.html') + '0123456789';
 const markerChars = [...new Set(names + heads)].join('');
-for (const [src, out, set] of [['LXGW975YuanSC-400W.ttf', 'yuan.woff2', chars], ['GBai851Marker.ttf', 'marker.woff2', markerChars]]) {
+for (const [src, out, set] of [['LXGW975YuanSC-500W.ttf', 'yuan.woff2', chars], ['GBai851Marker.ttf', 'marker.woff2', markerChars]]) {
   const buf = await subsetFont(fs.readFileSync(path.join(FONTS, src)), set, { targetFormat: 'woff2' });
   fs.writeFileSync(path.join(SITE, 'src/fonts', out), buf);
   console.log(out, (buf.length / 1024).toFixed(0) + ' KB', set.length + ' chars');
