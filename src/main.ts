@@ -143,7 +143,7 @@ function renderHome() {
       <div class="shortcuts">
         <a class="shortcut" href="#/enemies"><img src="${asset('img/monsters/monster46.png')}" alt="" loading="lazy">
           <div><h3>敌人图鉴</h3><p>${MONSTERS.length} 种敌人，其中 ${bossCount} 个 Boss</p></div></a>
-        <a class="shortcut" href="#/items"><img src="${asset('img/items/tsgj.png')}" alt="" loading="lazy">
+        <a class="shortcut" href="#/items"><img src="${asset('img/items/tianshagujian.png')}" alt="" loading="lazy">
           <div><h3>物品图鉴</h3><p>${ITEMS.length} 件装备、法宝、时装与道具</p></div></a>
       </div>
     </section>

@@ -64,7 +64,7 @@ for (const b of eqTxt.split('\n[sub_resource').filter((b) => /\ndisplay_name = /
   const id = value(f.id);
   const name = value(f.display_name);
   const stats = f.stats ? Object.fromEntries(dictPairs(f.stats)) : {};
-  const iconRes = f.ground_icon || f.icon;
+  const iconRes = f.icon;
   let icon = null;
   if (iconRes) {
     const rid = (iconRes.match(/ExtResource\("([^"]+)"\)/) || [])[1];
@@ -106,11 +106,10 @@ for (const m of ruleBlock('shop').matchAll(/"([a-z0-9]+)": ([\d.]+)/g)) if (byId
 // ------------------------------------------------------------------ monsters
 const STAGE_NAMES = official('stages.json');   // sl11 -> {name, boss?}
 const spawnIn = {};
-for (const file of fs.readdirSync(path.join(GAME, 'scenes/levels'))) {
-  const d = file.replace(/.tscn$/, '');
+for (const d of fs.readdirSync(path.join(GAME, 'stages'))) {
   if (!STAGE_NAMES[d]) continue;
   // the stage scene's MonsterSpawn nodes (Layout/Stops/<stop>/<spawn>: "monster = <id>")
-  const scene = fs.readFileSync(path.join(GAME, 'scenes/levels', file), 'utf8');
+  const scene = fs.readFileSync(path.join(GAME, 'stages', d, d + '.tscn'), 'utf8');
   for (const m of scene.matchAll(/^monster = (d+)$/gm)) (spawnIn[+m[1]] ??= new Set()).add(d);
 }
 const officialMonsters = official('monsters.json');
@@ -119,14 +118,17 @@ const HIDDEN = new Set([57]);   // 3-1's invisible fish thrower
 const groups = new Map();
 // a regular monster that has a named stage copy (黑无常 / 白无常 bosses of 1-2) shares that name
 const nameById = {};
-for (const f of fs.readdirSync(path.join(GAME, 'data/monsters'))) {
-  const m = f.match(/^monster_(\d+)/);
-  const n = (read('data/monsters/' + f).match(/\ndisplay_name = "([^"]+)"/) || [])[1];
+// monster data: entities/monsters/monster<id>/monster<id>[_<stage>].tres
+const monsterFiles = fs.readdirSync(path.join(GAME, 'entities/monsters')).flatMap((d) =>
+  fs.readdirSync(path.join(GAME, 'entities/monsters', d)).filter((f) => /^monster\d+(_sl\d+)?\.tres$/.test(f)).map((f) => `entities/monsters/${d}/${f}`));
+for (const p of monsterFiles) {
+  const m = path.basename(p).match(/^monster(\d+)/);
+  const n = (read(p).match(/\ndisplay_name = "([^"]+)"/) || [])[1];
   if (m && n) nameById[m[1]] ??= n;
 }
-for (const f of fs.readdirSync(path.join(GAME, 'data/monsters')).filter((f) => f.endsWith('.tres')).sort()) {
-  const m = f.match(/^monster_(\d+)(?:_(sl\d+))?\.tres$/);
-  const fl = fields(read('data/monsters/' + f).split('\n[resource]\n')[1] ?? '');
+for (const p of monsterFiles.sort()) {
+  const m = path.basename(p).match(/^monster(\d+)(?:_(sl\d+))?\.tres$/);
+  const fl = fields(read(p).split('\n[resource]\n')[1] ?? '');
   const id = Number(m[1]);
   const off = officialMonsters[String(id)] ?? {};
   const name = (fl.display_name ? value(fl.display_name) : '') || off.name || nameById[m[1]] || '';
