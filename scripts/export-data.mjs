@@ -55,7 +55,7 @@ const eqTxt = read('data/equipment.tres');
 const ext = {};
 for (const m of eqTxt.matchAll(/\[ext_resource type="Texture2D"[^\]]*path="res:\/\/([^"]+)" id="([^"]+)"\]/g)) ext[m[2]] = m[1];
 const officialItems = official('items.json');
-const TYPE = { weapon: '武器', cloth: '防具', accessory: '饰品', treasure: '法宝', wing: '翅膀', fashion: '时装', item: '道具' };
+const TYPE = { weapon: '武器', cloth: '防具', accessory: '饰品', fabao: '法宝', wing: '翅膀', fashion: '时装', item: '道具' };
 const USER = { 悟空: '孙悟空', 唐僧: '唐僧', 八戒: '猪八戒' };
 fs.mkdirSync(path.join(SITE, 'public/img/items'), { recursive: true });
 const items = [];
@@ -90,7 +90,7 @@ for (const b of eqTxt.split('\n[sub_resource').filter((b) => /\ndisplay_name = /
   });
 }
 
-// 法宝 growth rate range (treasures.defs.<id>.growth)
+// 法宝 growth rate range (fabao.defs.<id>.growth)
 for (const m of eqTxt.matchAll(/\n"([a-z0-9]+)": \{\n"growth": \[([\d.]+), ([\d.]+)\]/g)) {
   const it = items.find((x) => x.id === m[1]);
   if (it) it.growth = [Number(m[2]), Number(m[3])];
@@ -104,7 +104,7 @@ for (const r of recipes) { const it = byId[r.out]; if (it) (it.recipes ??= []).p
 for (const m of ruleBlock('shop').matchAll(/"([a-z0-9]+)": ([\d.]+)/g)) if (byId[m[1]] && !['amount', 'monster', 'per_day', 'per_page'].includes(m[1])) byId[m[1]].shopPrice = Number(m[2]);
 
 // ------------------------------------------------------------------ monsters
-const STAGE_NAMES = official('stages.json');   // sl11 -> {name, boss?}
+const STAGE_NAMES = official('stages.json');   // stage folder (guicheng) -> {name, boss?}
 const spawnIn = {};
 for (const d of fs.readdirSync(path.join(GAME, 'stages'))) {
   if (!STAGE_NAMES[d]) continue;
@@ -118,16 +118,20 @@ const HIDDEN = new Set([57]);   // 3-1's invisible fish thrower
 const groups = new Map();
 // a regular monster that has a named stage copy (黑无常 / 白无常 bosses of 1-2) shares that name
 const nameById = {};
-// monster data: entities/monsters/monster<id>/monster<id>[_<stage>].tres
+// monster data: entities/monsters/<folder>/<folder>.tres; a stage's own numbers in <folder>_<stage>.tres. m = [_, id, stage]
+const stageDirs = new Set(fs.readdirSync(path.join(GAME, 'stages')));
 const monsterFiles = fs.readdirSync(path.join(GAME, 'entities/monsters')).flatMap((d) =>
-  fs.readdirSync(path.join(GAME, 'entities/monsters', d)).filter((f) => /^monster\d+(_sl\d+)?\.tres$/.test(f)).map((f) => `entities/monsters/${d}/${f}`));
-for (const p of monsterFiles) {
-  const m = path.basename(p).match(/^monster(\d+)/);
+  fs.readdirSync(path.join(GAME, 'entities/monsters', d))
+    .filter((f) => f === d + '.tres' || (f.startsWith(d + '_') && f.endsWith('.tres') && stageDirs.has(f.slice(d.length + 1, -5))))
+    .map((f) => ({ p: `entities/monsters/${d}/${f}`, stage: f === d + '.tres' ? undefined : f.slice(d.length + 1, -5) })));
+const monsterMatch = (e) => [null, (read(e.p).match(/\nid = (\d+)/) || [])[1], e.stage];
+for (const mf of monsterFiles) {
+  const p = mf.p, m = monsterMatch(mf);
   const n = (read(p).match(/\ndisplay_name = "([^"]+)"/) || [])[1];
   if (m && n) nameById[m[1]] ??= n;
 }
-for (const p of monsterFiles.sort()) {
-  const m = path.basename(p).match(/^monster(\d+)(?:_(sl\d+))?\.tres$/);
+for (const mf of monsterFiles.sort((a, b) => Number(monsterMatch(a)[1]) - Number(monsterMatch(b)[1]) || (a.stage ? 1 : -1))) {
+  const p = mf.p, m = monsterMatch(mf);
   const fl = fields(read(p).split('\n[resource]\n')[1] ?? '');
   const id = Number(m[1]);
   const off = officialMonsters[String(id)] ?? {};

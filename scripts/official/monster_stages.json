@@ -1,5 +1,5 @@
 {
- "35": ["sl13"], "48": ["sl33"], "49": ["sl33"], "51": ["sl41"], "60": ["sl41"], "52": ["sl13"],
- "53": ["sl23"], "54": ["sl23"], "55": ["sl23"], "62": ["sl81"], "68": ["sl102"], "78": ["sl106"],
- "57": ["sl31"], "41": ["sl31"], "65": ["sl91"], "66": ["sl91"], "79": ["sl111"], "80": ["sl111"], "81": ["sl71"]
+ "35": ["guimenguan"], "48": ["wangxiangtai"], "49": ["wangxiangtai"], "51": ["zhuanlundian"], "60": ["zhuanlundian"], "52": ["guimenguan"],
+ "53": ["yanluodian"], "54": ["yanluodian"], "55": ["yanluodian"], "62": ["huodadiyu"], "68": ["luoxuandiyu_wuguanwang"], "78": ["luoxuandiyu_pingdengwang"],
+ "57": ["wangchuanhe"], "41": ["wangchuanhe"], "65": ["qixihuodong"], "66": ["qixihuodong"], "79": ["guoqinghuodong"], "80": ["guoqinghuodong"], "81": ["shibacengdiyu"]
 }
