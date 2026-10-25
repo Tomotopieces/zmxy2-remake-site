@@ -110,7 +110,7 @@ for (const d of fs.readdirSync(path.join(GAME, 'stages'))) {
   if (!STAGE_NAMES[d]) continue;
   // the stage scene's MonsterSpawn nodes (Layout/Stops/<stop>/<spawn>: "monster = <id>")
   const scene = fs.readFileSync(path.join(GAME, 'stages', d, d + '.tscn'), 'utf8');
-  for (const m of scene.matchAll(/^monster = (d+)$/gm)) (spawnIn[+m[1]] ??= new Set()).add(d);
+  for (const m of scene.matchAll(/^monster = (\d+)\r?$/gm)) (spawnIn[+m[1]] ??= new Set()).add(d);
 }
 const officialMonsters = official('monsters.json');
 const extraStages = official('monster_stages.json');   // id -> [stage] for summoned / scripted monsters
