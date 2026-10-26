@@ -19,6 +19,28 @@ export const SHOTS: { id: string; name: string; before?: boolean; text: string }
 // 更新日志: one entry per version number (builds of one version share it).
 export const CHANGELOG: { version: string; date: string; groups: [string, string[]][] }[] = [
   {
+    version: 'v0.3',
+    date: '2026-10-27 起',
+    groups: [
+      ['新内容', [
+        '设置页的游戏声音拆成音乐、音效、环境音三条音量滑条；画面震动和手柄震动分为关 / 弱 / 中 / 强四档，默认中档',
+        '标题界面加上“设置”按钮',
+        '背景音乐淡入淡出：换曲时前一首淡出、后一首同时淡入',
+        '界面切换先淡出到黑再淡入新界面；菜单切换页签时页面淡出淡入',
+        '转轮王3 每次击败奖励 100 功勋；国庆活动的劈天斧、风神盾每次击败各奖励 10 功勋',
+      ]],
+      ['改动', [
+        'Boss 掉落的东西不会再消失',
+        '受到伤害不再增加无双值（原版只在竞技场模式里有这个设定）',
+        '守夜人的飞刀打中一次就消失',
+      ]],
+      ['修正', [
+        '唐僧穿着普通的袈裟放玄冰阵时，弯腰低头而衣服不跟着弯，看起来像断头（唐僧怪同样修好）',
+        '唐僧怪的影子里出现衣服的颜色',
+      ]],
+    ],
+  },
+  {
     version: 'v0.2',
     date: '2026-10-22 起',
     groups: [
