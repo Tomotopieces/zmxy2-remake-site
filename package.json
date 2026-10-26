@@ -8,12 +8,15 @@
     "fonts": "node scripts/subset-fonts.mjs",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postdata": "node scripts/subset-fonts.mjs"
   },
   "devDependencies": {
+    "fontverter": "2.0.0",
+    "harfbuzzjs": "1.6.3",
+    "pinyin-pro": "3.29.5",
     "subset-font": "2.9.0",
     "typescript": "5.9.3",
-    "vite": "7.1.12",
-    "pinyin-pro": "3.29.5"
+    "vite": "7.1.12"
   }
 }
