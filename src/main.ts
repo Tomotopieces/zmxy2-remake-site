@@ -141,7 +141,7 @@ function renderHome() {
     <section class="section" aria-labelledby="h-dex">
       <div class="section-head"><div><h2 id="h-dex">图鉴</h2></div></div>
       <div class="shortcuts">
-        <a class="shortcut" href="#/enemies"><img src="${asset('img/monsters/monster46.png')}" alt="" loading="lazy">
+        <a class="shortcut" href="#/enemies"><img src="${asset('img/monsters/honghaier.png')}" alt="" loading="lazy">
           <div><h3>敌人图鉴</h3><p>${MONSTERS.length} 种敌人，其中 ${bossCount} 个 Boss</p></div></a>
         <a class="shortcut" href="#/items"><img src="${asset('img/items/tianshagujian.png')}" alt="" loading="lazy">
           <div><h3>物品图鉴</h3><p>${ITEMS.length} 件装备、法宝、时装与道具</p></div></a>
@@ -184,7 +184,7 @@ function markdown(md: string) {
 function renderGuide() {
   const toc = [...guideMd.matchAll(/^## (.+)$/gm)].map((x) => x[1]);
   main.innerHTML = `<div class="view guide">
-    <div class="page-head"><h1>游戏指南</h1><p>原始文本：<a href="${asset('guide.md')}">guide.md</a></p></div>
+    <div class="page-head"><h1>游戏指南</h1></div>
     <nav class="guide-toc" aria-label="目录">${toc.map((t) => `<a href="#g-${encodeURIComponent(t)}" data-scroll="g-${encodeURIComponent(t)}">${esc(t)}</a>`).join('')}</nav>
     ${markdown(guideMd)}
   </div>`;
