@@ -23,7 +23,7 @@ const QUALITIES = ['普通', '优秀', '精良', '史诗', '传说'];
 const Q_COLOR: Record<string, string> = { 普通: '#e9e3d8', 优秀: '#62c96b', 精良: '#5aa7ef', 史诗: '#b678ef', 传说: '#f29a3a' };
 const TYPES = ['武器', '防具', '饰品', '法宝', '翅膀', '时装', '道具'];
 const USERS = ['孙悟空', '唐僧', '猪八戒'];
-const STAGE_ORDER = ['鬼城', '无常巷', '鬼门关', '接引院', '判官殿', '阎罗殿', '忘川河', '奈何桥', '望乡台', '转轮殿',
+const STAGE_ORDER = ['鬼城', '无常巷', '鬼门关', '接引院', '判官府', '阎罗殿', '忘川河', '奈何桥', '望乡台', '转轮殿',
   '白骨秘境', '牛魔谷', '十八层地狱', '活大地狱', '螺旋地狱', '七夕活动', '国庆活动'];
 const STAT_NAMES: [string, string, boolean][] = [['atk', '攻击', false], ['def', '防御', false], ['hp', '生命', false], ['mp', '魔法', false],
   ['crit', '暴击', true], ['miss', '闪避', true], ['hp_regen', '回血', false], ['mp_regen', '回魔', false],
